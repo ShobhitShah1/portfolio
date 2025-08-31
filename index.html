@@ -3,220 +3,231 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shobhit Shah - React Native Developer</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <meta name="description" content="Shobhit Shah - React Native Developer Portfolio | Building innovative mobile experiences">
+    <meta name="keywords" content="React Native, Mobile Developer, TypeScript, JavaScript, iOS, Android, Portfolio">
+    <meta name="author" content="Shobhit Shah">
+    <title>Shobhit Shah | Mobile Architect</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
     <style>
-        :root {
-            --bg-primary: #0a0a0a;
-            --bg-secondary: #151515;
-            --bg-elevated: #1f1f1f;
-            --text-primary: #ffffff;
-            --text-secondary: #cccccc;
-            --text-muted: #888888;
-            --accent-primary: #ffffff;
-            --border-color: #333333;
-            --shadow: rgba(0, 0, 0, 0.8);
-            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            cursor: none;
+        }
+
+        :root {
+            --bg: #000000;
+            --surface: #0a0a0a;
+            --primary: #00ff88;
+            --secondary: #ff0088;
+            --tertiary: #00d4ff;
+            --text: #ffffff;
+            --text-dim: #a0a0a0;
+            --border: rgba(255, 255, 255, 0.08);
         }
 
         html {
             scroll-behavior: smooth;
-            overflow-x: hidden;
+            cursor: none;
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            line-height: 1.6;
-            color: var(--text-secondary);
-            background: var(--bg-primary);
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
             overflow-x: hidden;
-            position: relative;
+            cursor: none;
         }
 
-        /* Enhanced Space Background */
-        .space-container {
+        /* Custom Cursor */
+        .cursor {
+            width: 40px;
+            height: 40px;
+            border: 2px solid var(--primary);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: all 0.1s ease;
+            transform: translate(-50%, -50%);
+            mix-blend-mode: difference;
+        }
+
+        .cursor-dot {
+            width: 4px;
+            height: 4px;
+            background: var(--primary);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+        }
+
+        .cursor.hover {
+            width: 60px;
+            height: 60px;
+            border-color: var(--secondary);
+            background: rgba(255, 0, 136, 0.1);
+        }
+
+        a, button {
+            cursor: none;
+        }
+
+        /* Unique Grid Background */
+        .grid-background {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            height: 100vh;
-            z-index: -5;
-            overflow: hidden;
-        }
-
-        .space-bg {
-            position: absolute;
-            width: 100%;
             height: 100%;
-            background: radial-gradient(circle at 20% 30%, #1a0033 0%, #0a0a0a 40%),
-                        radial-gradient(circle at 80% 70%, #001133 0%, #0a0a0a 40%),
-                        radial-gradient(circle at 40% 80%, #330011 0%, #0a0a0a 50%);
+            z-index: -2;
+            opacity: 0.03;
+            background-image: 
+                linear-gradient(var(--primary) 1px, transparent 1px),
+                linear-gradient(90deg, var(--primary) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: grid-move 10s linear infinite;
         }
 
-        .stars-layer {
-            position: absolute;
-            width: 100%;
-            height: 100%;
+        @keyframes grid-move {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
         }
 
-        .star {
-            position: absolute;
-            background: white;
+        /* Floating Orbs Background */
+        .orb {
+            position: fixed;
             border-radius: 50%;
-            animation: twinkle 4s infinite;
-        }
-
-        .star.small { width: 1px; height: 1px; }
-        .star.medium { width: 2px; height: 2px; }
-        .star.large { width: 3px; height: 3px; }
-
-        .nebula {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(40px);
-            opacity: 0.3;
-            animation: float 20s infinite ease-in-out;
-        }
-
-        .nebula.purple {
-            background: radial-gradient(circle, #6a5acd, transparent);
-        }
-
-        .nebula.blue {
-            background: radial-gradient(circle, #4169e1, transparent);
-        }
-
-        .nebula.pink {
-            background: radial-gradient(circle, #ff69b4, transparent);
-        }
-
-        .shooting-star {
-            position: absolute;
-            width: 2px;
-            height: 2px;
-            background: white;
-            border-radius: 50%;
-            animation: shoot 12s linear infinite;
-        }
-
-        .shooting-star::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            right: 100%;
-            width: 30px;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, white, transparent);
-            transform: translateY(-50%);
-        }
-
-        .constellation {
-            position: absolute;
-            width: 200px;
-            height: 200px;
+            filter: blur(100px);
             opacity: 0.4;
+            animation: float 20s ease-in-out infinite;
+            z-index: -1;
         }
 
-        .constellation-line {
-            position: absolute;
-            height: 1px;
-            background: rgba(255, 255, 255, 0.3);
-            transform-origin: left center;
+        .orb1 {
+            width: 600px;
+            height: 600px;
+            background: var(--primary);
+            top: -200px;
+            left: -200px;
         }
 
-        /* Main Layout */
-        .main-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-            position: relative;
-            z-index: 1;
+        .orb2 {
+            width: 500px;
+            height: 500px;
+            background: var(--secondary);
+            bottom: -200px;
+            right: -200px;
+            animation-delay: 5s;
         }
 
-        /* Navigation */
-        .navbar {
+        .orb3 {
+            width: 400px;
+            height: 400px;
+            background: var(--tertiary);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation-delay: 10s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(100px, -100px) scale(1.1); }
+            50% { transform: translate(-100px, 100px) scale(0.9); }
+            75% { transform: translate(50px, 50px) scale(1.05); }
+        }
+
+        /* Navigation - Side Fixed */
+        nav {
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: rgba(10, 10, 10, 0.8);
-            backdrop-filter: blur(20px);
+            top: 50%;
+            right: 40px;
+            transform: translateY(-50%);
             z-index: 1000;
-            padding: 1.5rem 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .nav-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
             display: flex;
-            justify-content: space-between;
-            align-items: center;
+            flex-direction: column;
+            gap: 30px;
         }
 
+        .nav-dot {
+            width: 12px;
+            height: 12px;
+            border: 2px solid var(--text-dim);
+            border-radius: 50%;
+            background: transparent;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-dot.active {
+            background: var(--primary);
+            border-color: var(--primary);
+            box-shadow: 0 0 20px var(--primary);
+        }
+
+        .nav-dot:hover {
+            border-color: var(--primary);
+            transform: scale(1.5);
+        }
+
+        .nav-tooltip {
+            position: absolute;
+            right: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--surface);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s ease;
+            border: 1px solid var(--border);
+        }
+
+        .nav-dot:hover .nav-tooltip {
+            opacity: 1;
+            right: 40px;
+        }
+
+        /* Logo */
         .logo {
-            font-family: 'Orbitron', monospace;
-            font-size: 1.8rem;
-            font-weight: 900;
-            color: var(--text-primary);
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            position: relative;
+            position: fixed;
+            top: 40px;
+            left: 40px;
+            z-index: 1000;
+            font-family: 'Syne', sans-serif;
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: -1px;
         }
 
-        .logo::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, white, transparent);
-            animation: pulse 2s infinite;
+        .logo span {
+            display: inline-block;
+            transition: all 0.3s ease;
         }
 
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 3rem;
+        .logo span:nth-child(1) { color: var(--primary); }
+        .logo span:nth-child(2) { color: var(--secondary); }
+        .logo span:nth-child(3) { color: var(--tertiary); }
+
+        .logo:hover span {
+            animation: logo-dance 0.5s ease infinite;
         }
 
-        .nav-link {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: var(--transition);
-            position: relative;
-            padding: 0.5rem 0;
-        }
-
-        .nav-link::before {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--text-primary);
-            transition: width 0.3s ease;
-        }
-
-        .nav-link:hover {
-            color: var(--text-primary);
-        }
-
-        .nav-link:hover::before {
-            width: 100%;
+        @keyframes logo-dance {
+            0%, 100% { transform: translateY(0) rotate(0); }
+            50% { transform: translateY(-5px) rotate(5deg); }
         }
 
         /* Hero Section */
@@ -224,1114 +235,777 @@
             min-height: 100vh;
             display: flex;
             align-items: center;
-            padding: 8rem 0;
+            justify-content: center;
             position: relative;
+            padding: 0 80px;
         }
 
         .hero-content {
+            max-width: 1200px;
             width: 100%;
-            text-align: center;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
         }
 
-        .hero-greeting {
-            font-family: 'Orbitron', monospace;
-            font-size: 1rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 4px;
-            margin-bottom: 1.5rem;
-            opacity: 0;
-            animation: fadeInUp 1s ease forwards;
+        .hero-text {
+            position: relative;
         }
 
-        .hero-title {
-            font-family: 'Orbitron', monospace;
-            font-size: clamp(3rem, 8vw, 6rem);
-            font-weight: 900;
-            color: var(--text-primary);
-            line-height: 1;
-            margin-bottom: 1.5rem;
-            text-transform: uppercase;
-            letter-spacing: 5px;
-            opacity: 0;
-            animation: fadeInUp 1s ease 0.3s forwards;
-            text-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
+        .hero-label {
+            font-family: 'Space Mono', monospace;
+            font-size: 14px;
+            color: var(--primary);
+            margin-bottom: 20px;
+            letter-spacing: 2px;
         }
 
-        .hero-subtitle {
-            font-size: clamp(1.2rem, 4vw, 2rem);
-            font-weight: 300;
-            color: var(--text-secondary);
-            margin-bottom: 2rem;
-            opacity: 0;
-            animation: fadeInUp 1s ease 0.6s forwards;
+        .hero h1 {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(3rem, 7vw, 5.5rem);
+            font-weight: 800;
+            line-height: 0.9;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .hero h1 .name-line {
+            display: block;
+            overflow: hidden;
+        }
+
+        .hero h1 .first-name {
+            display: inline-block;
+            animation: slideInLeft 1s ease;
+        }
+
+        .hero h1 .last-name {
+            display: inline-block;
+            color: transparent;
+            -webkit-text-stroke: 2px var(--primary);
+            animation: slideInRight 1s ease;
+        }
+
+        @keyframes slideInLeft {
+            from { transform: translateX(-100px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes slideInRight {
+            from { transform: translateX(100px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
         }
 
         .hero-description {
-            font-size: 1.2rem;
-            color: var(--text-muted);
-            max-width: 700px;
-            margin: 0 auto 4rem;
-            line-height: 1.8;
-            opacity: 0;
-            animation: fadeInUp 1s ease 0.9s forwards;
+            font-size: 18px;
+            line-height: 1.6;
+            color: var(--text-dim);
+            margin-bottom: 40px;
+            max-width: 500px;
         }
 
         .hero-cta {
             display: flex;
-            gap: 2rem;
-            justify-content: center;
-            opacity: 0;
-            animation: fadeInUp 1s ease 1.2s forwards;
+            gap: 20px;
         }
 
-        .cta-button {
-            padding: 1.2rem 3rem;
-            background: transparent;
-            color: var(--text-primary);
+        .btn {
+            padding: 15px 40px;
+            font-family: 'Space Mono', monospace;
+            font-weight: 700;
             text-decoration: none;
-            font-weight: 600;
-            font-size: 1rem;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            border: 2px solid var(--text-primary);
-            transition: var(--transition);
+            letter-spacing: 1px;
+            font-size: 12px;
+            transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
+            border: 2px solid var(--primary);
         }
 
-        .cta-button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: var(--text-primary);
-            transition: left 0.5s ease;
+        .btn-primary {
+            background: var(--primary);
+            color: var(--bg);
         }
 
-        .cta-button:hover::before {
-            left: 0;
+        .btn-primary:hover {
+            background: transparent;
+            color: var(--primary);
         }
 
-        .cta-button:hover {
-            color: var(--bg-primary);
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(255, 255, 255, 0.2);
+        .btn-outline {
+            background: transparent;
+            color: var(--primary);
         }
 
-        .cta-button span {
+        .btn-outline:hover {
+            background: var(--primary);
+            color: var(--bg);
+        }
+
+        /* Hero Visual */
+        .hero-visual {
             position: relative;
-            z-index: 2;
+            height: 500px;
         }
 
-        .cta-secondary {
-            border-color: var(--text-muted);
-            color: var(--text-muted);
+        .code-window {
+            position: absolute;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
         }
 
-        .cta-secondary::before {
-            background: var(--text-muted);
+        .code-window-header {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 10px 15px;
+            display: flex;
+            gap: 8px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .window-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .dot-red { background: #ff5f57; }
+        .dot-yellow { background: #ffbd2e; }
+        .dot-green { background: #28ca42; }
+
+        .code-content {
+            padding: 20px;
+            font-family: 'Space Mono', monospace;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .code-line {
+            margin: 5px 0;
+            opacity: 0;
+            animation: codeFadeIn 0.5s ease forwards;
+        }
+
+        .code-line:nth-child(1) { animation-delay: 0.1s; }
+        .code-line:nth-child(2) { animation-delay: 0.2s; }
+        .code-line:nth-child(3) { animation-delay: 0.3s; }
+        .code-line:nth-child(4) { animation-delay: 0.4s; }
+        .code-line:nth-child(5) { animation-delay: 0.5s; }
+
+        @keyframes codeFadeIn {
+            to { opacity: 1; }
+        }
+
+        .code-keyword { color: var(--secondary); }
+        .code-string { color: var(--primary); }
+        .code-function { color: var(--tertiary); }
+        .code-comment { color: var(--text-dim); }
+
+        .window-1 {
+            width: 350px;
+            top: 50px;
+            left: 0;
+            transform: rotate(-5deg);
+            animation: float-code 8s ease-in-out infinite;
+        }
+
+        .window-2 {
+            width: 300px;
+            bottom: 50px;
+            right: 0;
+            transform: rotate(5deg);
+            animation: float-code 8s ease-in-out infinite 2s;
+        }
+
+        @keyframes float-code {
+            0%, 100% { transform: translateY(0) rotate(-5deg); }
+            50% { transform: translateY(-20px) rotate(-3deg); }
         }
 
         /* Projects Section */
         .projects {
-            padding: 10rem 0;
+            padding: 100px 80px;
             position: relative;
         }
 
         .section-header {
-            text-align: center;
-            margin-bottom: 8rem;
+            margin-bottom: 80px;
+        }
+
+        .section-label {
+            font-family: 'Space Mono', monospace;
+            font-size: 14px;
+            color: var(--primary);
+            letter-spacing: 2px;
+            margin-bottom: 20px;
         }
 
         .section-title {
-            font-family: 'Orbitron', monospace;
-            font-size: clamp(2.5rem, 6vw, 4rem);
-            font-weight: 900;
-            color: var(--text-primary);
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            margin-bottom: 2rem;
-            text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            margin-bottom: 20px;
         }
 
-        .section-subtitle {
-            font-size: 1.3rem;
-            color: var(--text-muted);
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .projects-grid {
+        .projects-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 3rem;
+            gap: 100px;
         }
 
-        .project-card {
-            background: linear-gradient(145deg, rgba(15, 15, 15, 0.95), rgba(25, 25, 25, 0.8));
-            backdrop-filter: blur(25px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 24px;
-            padding: 0;
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        .project {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
             position: relative;
-            overflow: hidden;
-            opacity: 0;
-            transform: translateY(50px) rotateX(10deg);
-            perspective: 1000px;
-            cursor: pointer;
         }
 
-        .project-card.visible {
-            opacity: 1;
-            transform: translateY(0) rotateX(0deg);
+        .project:nth-child(even) {
+            direction: rtl;
         }
 
-        .project-card::before {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: linear-gradient(45deg, 
-                rgba(255, 255, 255, 0.1), 
-                transparent, 
-                rgba(255, 255, 255, 0.05), 
-                transparent);
-            border-radius: 24px;
-            z-index: -1;
-            opacity: 0;
-            transition: opacity 0.5s ease;
+        .project:nth-child(even) > * {
+            direction: ltr;
         }
 
-        .project-card::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), 
-                rgba(255, 255, 255, 0.03) 0%, 
-                transparent 50%);
-            border-radius: 24px;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            pointer-events: none;
-        }
-
-        .project-card:hover {
-            transform: translateY(-15px) rotateX(5deg);
-            border-color: rgba(255, 255, 255, 0.2);
-            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.6),
-                        0 0 50px rgba(255, 255, 255, 0.05);
-        }
-
-        .project-card:hover::before {
-            opacity: 1;
-        }
-
-        .project-card:hover::after {
-            opacity: 1;
-        }
-
-        .project-header {
+        .project-visual {
             position: relative;
-            padding: 3rem 3rem 2rem 3rem;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-        }
-
-        .project-header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-        }
-
-        .project-icon {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.05));
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
+            height: 400px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2rem;
-            margin-bottom: 1.5rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: var(--transition);
+        }
+
+        .app-mockup {
+            width: 250px;
+            height: 500px;
+            background: var(--surface);
+            border-radius: 30px;
+            border: 2px solid var(--border);
             position: relative;
             overflow: hidden;
+            transform: rotate(-5deg);
+            transition: all 0.5s ease;
         }
 
-        .project-icon::before {
-            content: '';
+        .project:hover .app-mockup {
+            transform: rotate(0deg) scale(1.05);
+        }
+
+        .app-screen {
             position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-            transform: rotate(45deg) translateX(-100%);
-            transition: transform 0.8s ease;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            bottom: 10px;
+            border-radius: 25px;
+            overflow: hidden;
+            background: linear-gradient(135deg, var(--surface), #1a1a1a);
         }
 
-        .project-card:hover .project-icon::before {
-            transform: rotate(45deg) translateX(100%);
+        .app-logo {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100px;
+            height: 100px;
         }
 
-        .project-meta {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 1rem;
+        .project-info {
+            position: relative;
         }
 
-        .project-category {
-            color: var(--text-muted);
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            font-weight: 600;
-            padding: 0.4rem 1rem;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-        }
-
-        .project-status {
-            color: #4ade80;
-            font-size: 0.8rem;
-            font-weight: 600;
-            padding: 0.3rem 0.8rem;
-            background: rgba(74, 222, 128, 0.1);
-            border-radius: 15px;
-            border: 1px solid rgba(74, 222, 128, 0.2);
-            text-transform: uppercase;
-            letter-spacing: 1px;
+        .project-number {
+            position: absolute;
+            top: -60px;
+            left: 0;
+            font-family: 'Syne', sans-serif;
+            font-size: 120px;
+            font-weight: 800;
+            color: var(--surface);
+            z-index: -1;
+            line-height: 1;
         }
 
         .project-title {
-            font-family: 'Orbitron', monospace;
-            font-size: 2rem;
-            font-weight: 900;
-            color: var(--text-primary);
-            margin-bottom: 0;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            line-height: 1.2;
-            background: linear-gradient(135deg, #ffffff, #cccccc);
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .project-body {
-            padding: 3rem;
+            font-family: 'Syne', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
         }
 
         .project-description {
-            color: var(--text-secondary);
-            line-height: 1.8;
-            margin-bottom: 2.5rem;
-            font-size: 1.1rem;
-            font-weight: 400;
-        }
-
-        .project-stats {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 1rem;
-            margin-bottom: 2.5rem;
-            padding: 1.5rem;
-            background: rgba(255, 255, 255, 0.02);
-            border-radius: 16px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .stat-item {
-            text-align: center;
-        }
-
-        .stat-value {
-            display: block;
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--text-primary);
-            margin-bottom: 0.3rem;
-        }
-
-        .stat-label {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .project-features {
-            list-style: none;
-            margin-bottom: 2.5rem;
-            display: grid;
-            gap: 0.8rem;
-        }
-
-        .project-features li {
-            color: var(--text-secondary);
-            padding: 0.8rem 1.2rem;
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 12px;
-            border-left: 3px solid rgba(255, 255, 255, 0.2);
-            transition: var(--transition);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .project-features li::before {
-            content: '✨';
-            position: absolute;
-            left: -30px;
-            top: 50%;
-            transform: translateY(-50%);
-            transition: left 0.3s ease;
-        }
-
-        .project-features li:hover::before {
-            left: 0.8rem;
-        }
-
-        .project-features li:hover {
-            background: rgba(255, 255, 255, 0.06);
-            border-left-color: rgba(255, 255, 255, 0.4);
-            padding-left: 2.5rem;
+            color: var(--text-dim);
+            line-height: 1.6;
+            margin-bottom: 30px;
         }
 
         .project-tech {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.6rem;
-            margin-bottom: 3rem;
+            gap: 10px;
+            margin-bottom: 30px;
         }
 
-        .tech-badge {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
-            color: var(--text-primary);
-            padding: 0.6rem 1.2rem;
+        .tech-tag {
+            padding: 5px 15px;
+            border: 1px solid var(--border);
             border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            border: 1px solid rgba(255, 255, 255, 0.15);
+            font-size: 12px;
+            font-family: 'Space Mono', monospace;
             transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
         }
 
-        .tech-badge::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
-            transition: left 0.5s ease;
-        }
-
-        .tech-badge:hover {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.08));
-            border-color: rgba(255, 255, 255, 0.3);
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-        }
-
-        .tech-badge:hover::before {
-            left: 100%;
-        }
-
-        .project-footer {
-            padding: 0 3rem 3rem 3rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            padding-top: 2rem;
+        .tech-tag:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            transform: translateY(-2px);
         }
 
         .project-links {
             display: flex;
-            gap: 1rem;
+            gap: 15px;
         }
 
         .project-link {
-            color: var(--text-primary);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text);
             text-decoration: none;
-            font-weight: 600;
-            font-size: 0.9rem;
+            font-family: 'Space Mono', monospace;
+            font-size: 12px;
             text-transform: uppercase;
             letter-spacing: 1px;
-            padding: 1rem 2rem;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 25px;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-            backdrop-filter: blur(10px);
-        }
-
-        .project-link::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1));
-            transform: translateX(-100%) skewX(-15deg);
-            transition: transform 0.6s ease;
-        }
-
-        .project-link:hover::before {
-            transform: translateX(100%) skewX(-15deg);
-        }
-
-        .project-link:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
-            border-color: rgba(255, 255, 255, 0.4);
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.08));
-        }
-
-        .project-link span {
-            position: relative;
-            z-index: 2;
-        }
-
-        /* About Section */
-        .about {
-            padding: 10rem 0;
-            background: rgba(15, 15, 15, 0.5);
-        }
-
-        /* About Section */
-        .about {
-            padding: 12rem 0;
-            position: relative;
-            background: radial-gradient(ellipse at center top, rgba(255, 255, 255, 0.02), transparent 70%);
-        }
-
-        .about-container {
-            display: grid;
-            grid-template-columns: 1.2fr 1fr;
-            gap: 8rem;
-            align-items: start;
-        }
-
-        .about-content {
-            position: relative;
-        }
-
-        .about-intro {
-            font-size: 1.4rem;
-            line-height: 1.8;
-            color: var(--text-secondary);
-            margin-bottom: 3rem;
-            font-weight: 300;
-        }
-
-        .about-highlight {
-            color: var(--text-primary);
-            font-weight: 600;
-            position: relative;
-        }
-
-        .about-highlight::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background: linear-gradient(90deg, var(--text-primary), transparent);
-            opacity: 0.6;
-        }
-
-        .about-journey {
-            display: grid;
-            gap: 2.5rem;
-            margin-bottom: 4rem;
-        }
-
-        .journey-item {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
-            backdrop-filter: blur(15px);
-            padding: 2.5rem;
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .journey-item::before {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: linear-gradient(45deg, rgba(255, 255, 255, 0.1), transparent, rgba(255, 255, 255, 0.05));
-            border-radius: 20px;
-            z-index: -1;
-            opacity: 0;
-            transition: opacity 0.4s ease;
-        }
-
-        .journey-item:hover {
-            transform: translateX(10px);
-            border-color: rgba(255, 255, 255, 0.15);
-        }
-
-        .journey-item:hover::before {
-            opacity: 1;
-        }
-
-        .journey-number {
-            display: inline-block;
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.05));
-            border-radius: 12px;
-            text-align: center;
-            line-height: 40px;
-            font-weight: 700;
-            color: var(--text-primary);
-            margin-bottom: 1.5rem;
-            font-family: 'Orbitron', monospace;
-        }
-
-        .journey-title {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: var(--text-primary);
-            margin-bottom: 1rem;
-            font-family: 'Orbitron', monospace;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .journey-text {
-            color: var(--text-secondary);
-            line-height: 1.7;
-        }
-
-        .about-stats {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-            margin-bottom: 4rem;
-        }
-
-        .stat-card {
-            text-align: center;
-            padding: 2rem;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03));
-            backdrop-filter: blur(15px);
-            border-radius: 16px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
             transition: all 0.3s ease;
         }
 
-        .stat-card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(255, 255, 255, 0.2);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        .project-link:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            transform: translateX(5px);
         }
 
-        .stat-number {
-            font-size: 2.5rem;
-            font-weight: 900;
-            color: var(--text-primary);
-            font-family: 'Orbitron', monospace;
-            display: block;
-            margin-bottom: 0.5rem;
-            background: linear-gradient(135deg, #ffffff, #cccccc);
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .stat-text {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .skills-showcase {
-            position: relative;
+        /* Skills Section */
+        .skills {
+            padding: 100px 80px;
+            background: var(--surface);
         }
 
         .skills-grid {
             display: grid;
-            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2px;
+            background: var(--border);
+            margin-top: 60px;
         }
 
-        .skill-category {
-            background: linear-gradient(135deg, rgba(15, 15, 15, 0.9), rgba(25, 25, 25, 0.8));
-            backdrop-filter: blur(25px);
-            padding: 2.5rem;
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            transition: all 0.4s ease;
+        .skill-card {
+            background: var(--surface);
+            padding: 40px;
             position: relative;
             overflow: hidden;
-            cursor: pointer;
+            transition: all 0.3s ease;
         }
 
-        .skill-category::before {
+        .skill-card:hover {
+            background: rgba(0, 255, 136, 0.02);
+        }
+
+        .skill-card::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 2px;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            transform: translateX(-100%);
-            transition: transform 0.6s ease;
-        }
-
-        .skill-category:hover::before {
-            transform: translateX(100%);
-        }
-
-        .skill-category:hover {
-            transform: translateY(-8px) scale(1.02);
-            border-color: rgba(255, 255, 255, 0.15);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
-        }
-
-        .skill-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 2rem;
-        }
-
-        .skill-title {
-            font-family: 'Orbitron', monospace;
-            color: var(--text-primary);
-            font-size: 1.2rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .skill-count {
-            background: rgba(255, 255, 255, 0.1);
-            color: var(--text-primary);
-            padding: 0.3rem 0.8rem;
-            border-radius: 12px;
-            font-size: 0.8rem;
-            font-weight: 600;
-        }
-
-        .skill-items {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-            gap: 1rem;
-        }
-
-        .skill-item {
-            background: rgba(255, 255, 255, 0.05);
-            color: var(--text-secondary);
-            padding: 1rem;
-            border-radius: 12px;
-            font-size: 0.85rem;
-            font-weight: 500;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            transition: all 0.3s ease;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .skill-item::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-            transition: left 0.5s ease;
-        }
-
-        .skill-item:hover::before {
-            left: 100%;
-        }
-
-        .skill-item:hover {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: rgba(255, 255, 255, 0.2);
-            color: var(--text-primary);
-            transform: translateY(-3px) scale(1.05);
-        }
-
-        .about-cta {
-            display: flex;
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .cta-link {
-            color: var(--text-primary);
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            padding: 1.2rem 2.5rem;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 30px;
-            transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
-            backdrop-filter: blur(10px);
-        }
-
-        .cta-link::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1));
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
             transform: translateX(-100%);
             transition: transform 0.5s ease;
         }
 
-        .cta-link:hover::before {
+        .skill-card:hover::before {
             transform: translateX(100%);
         }
 
-        .cta-link:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
-            border-color: rgba(255, 255, 255, 0.4);
+        .skill-icon {
+            width: 40px;
+            height: 40px;
+            margin-bottom: 20px;
+            fill: var(--primary);
         }
 
-        .cta-link span {
+        .skill-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .skill-list {
+            color: var(--text-dim);
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        /* Experience Timeline */
+        .experience {
+            padding: 100px 80px;
             position: relative;
-            z-index: 2;
+        }
+
+        .timeline {
+            max-width: 800px;
+            margin: 60px auto 0;
+            position: relative;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--border);
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            margin-bottom: 80px;
+            position: relative;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            top: 20px;
+            width: 20px;
+            height: 20px;
+            background: var(--bg);
+            border: 3px solid var(--primary);
+            border-radius: 50%;
+            transform: translateX(-50%);
+            z-index: 1;
+        }
+
+        .timeline-content {
+            padding: 30px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-content:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+        }
+
+        .timeline-date {
+            font-family: 'Space Mono', monospace;
+            color: var(--primary);
+            font-size: 12px;
+            margin-bottom: 10px;
+        }
+
+        .timeline-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .timeline-company {
+            color: var(--text-dim);
+            margin-bottom: 20px;
+        }
+
+        .timeline-description {
+            color: var(--text-dim);
+            line-height: 1.6;
         }
 
         /* Contact Section */
         .contact {
-            padding: 10rem 0;
+            padding: 100px 80px;
+            background: var(--surface);
             text-align: center;
         }
 
         .contact-content {
-            max-width: 800px;
+            max-width: 600px;
             margin: 0 auto;
         }
 
-        .contact-title {
-            font-family: 'Orbitron', monospace;
-            font-size: clamp(2.5rem, 6vw, 4rem);
-            font-weight: 900;
-            color: var(--text-primary);
-            margin-bottom: 2rem;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
-        }
-
         .contact-description {
-            font-size: 1.2rem;
-            color: var(--text-muted);
-            line-height: 1.8;
-            margin-bottom: 4rem;
+            color: var(--text-dim);
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 60px;
         }
 
         .contact-links {
             display: flex;
             justify-content: center;
-            gap: 2rem;
+            gap: 40px;
+            flex-wrap: wrap;
         }
 
         .contact-link {
             display: flex;
+            flex-direction: column;
             align-items: center;
-            gap: 1rem;
-            color: var(--text-primary);
+            gap: 10px;
             text-decoration: none;
-            font-weight: 600;
-            font-size: 1rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            padding: 1.5rem 2.5rem;
-            background: rgba(255, 255, 255, 0.05);
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            border-radius: 50px;
-            transition: var(--transition);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .contact-link::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            transition: all 0.5s ease;
-        }
-
-        .contact-link:hover::before {
-            width: 300px;
-            height: 300px;
+            color: var(--text-dim);
+            transition: all 0.3s ease;
         }
 
         .contact-link:hover {
-            border-color: var(--text-primary);
+            color: var(--primary);
             transform: translateY(-5px);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            padding: 12px;
+            border: 1px solid var(--border);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .contact-link:hover .contact-icon {
+            border-color: var(--primary);
+            background: rgba(0, 255, 136, 0.1);
         }
 
         /* Footer */
-        .footer {
-            padding: 3rem 0;
+        footer {
+            padding: 40px 80px;
             text-align: center;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: var(--text-muted);
-            background: rgba(10, 10, 10, 0.8);
+            border-top: 1px solid var(--border);
+            color: var(--text-dim);
+            font-size: 14px;
         }
 
-        /* Animations */
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
+        /* Mobile Responsive */
+        @media (max-width: 1024px) {
+            nav {
+                right: 20px;
             }
-        }
 
-        @keyframes twinkle {
-            0%, 100% { opacity: 0.3; }
-            50% { opacity: 1; }
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translate(0, 0) rotate(0deg); }
-            25% { transform: translate(10px, -10px) rotate(90deg); }
-            50% { transform: translate(-5px, -20px) rotate(180deg); }
-            75% { transform: translate(-10px, -5px) rotate(270deg); }
-        }
-
-        @keyframes shoot {
-            0% { 
-                transform: translateX(-50px) translateY(-50px);
-                opacity: 0;
-            }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
-            100% { 
-                transform: translateX(500px) translateY(500px);
-                opacity: 0;
-            }
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 0.5; }
-            50% { opacity: 1; }
-        }
-
-        /* Responsive */
-        @media (max-width: 1200px) {
-            .about-container {
+            .hero-content {
                 grid-template-columns: 1fr;
-                gap: 6rem;
-            }
-            
-            .projects-grid {
-                grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-                gap: 2.5rem;
+                gap: 60px;
             }
 
-            .project-header, .project-body, .project-footer {
-                padding: 2.5rem;
+            .hero-visual {
+                display: none;
             }
 
-            .project-footer {
-                padding-top: 2rem;
+            .project {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .project:nth-child(even) {
+                direction: ltr;
+            }
+
+            .project-visual {
+                height: 300px;
+            }
+
+            .timeline-item {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .timeline::before {
+                left: 20px;
+            }
+
+            .timeline-dot {
+                left: 20px;
             }
         }
 
         @media (max-width: 768px) {
-            .main-container {
-                padding: 0 1rem;
+            body {
+                font-size: 14px;
             }
 
-            .nav-content {
-                padding: 0 1rem;
-            }
-
-            .nav-links {
+            nav {
                 display: none;
             }
 
-            .hero-cta {
-                flex-direction: column;
-                align-items: center;
+            .logo {
+                top: 20px;
+                left: 20px;
             }
 
-            .contact-links {
-                flex-direction: column;
-                align-items: center;
+            .hero, .projects, .skills, .experience, .contact {
+                padding: 60px 20px;
             }
 
-            .projects-grid {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-
-            .project-card {
-                margin: 0 0.5rem;
-            }
-
-            .project-header, .project-body, .project-footer {
-                padding: 2rem;
-            }
-
-            .project-footer {
-                padding-top: 1.5rem;
-            }
-
-            .project-stats {
-                grid-template-columns: 1fr 1fr;
-                gap: 1rem;
-            }
-
-            .project-links {
-                flex-direction: column;
-                gap: 1rem;
-            }
-
-            .project-link {
-                text-align: center;
-                width: 100%;
-            }
-
-            .skills-grid {
-                gap: 1rem;
-            }
-
-            .skill-category {
-                padding: 2rem;
-            }
-
-            .skill-items {
-                grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-                gap: 0.8rem;
-            }
-
-            .about-stats {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
-            }
-
-            .about-cta {
-                flex-direction: column;
-                gap: 1rem;
-            }
-
-            .cta-link {
-                text-align: center;
-                width: 100%;
-            }
-
-            .journey-item {
-                padding: 2rem;
-            }
-
-            .contact-link {
-                width: 100%;
-                justify-content: center;
+            .hero h1 {
+                font-size: 3rem;
             }
 
             .section-title {
-                margin-bottom: 3rem;
+                font-size: 2rem;
+            }
+
+            .project-number {
+                font-size: 60px;
+                top: -40px;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+
+            footer {
+                padding: 30px 20px;
             }
         }
 
-        /* Focus styles */
-        .cta-button:focus,
-        .nav-link:focus,
-        .project-link:focus,
-        .contact-link:focus {
-            outline: 2px solid var(--text-primary);
-            outline-offset: 4px;
+        /* Loading Animation */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            transition: opacity 0.5s ease;
+        }
+
+        .loader.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .loader-text {
+            font-family: 'Syne', sans-serif;
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--primary);
+            animation: pulse 1s ease infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
         }
     </style>
 </head>
 <body>
-    <!-- Enhanced Space Background -->
-    <div class="space-container">
-        <div class="space-bg"></div>
-        <div class="stars-layer"></div>
-        <div class="nebula purple" style="top: 10%; left: 10%; width: 300px; height: 300px;"></div>
-        <div class="nebula blue" style="top: 60%; right: 20%; width: 400px; height: 400px;"></div>
-        <div class="nebula pink" style="bottom: 20%; left: 30%; width: 250px; height: 250px;"></div>
+    <!-- Loader -->
+    <div class="loader" id="loader">
+        <div class="loader-text">LOADING</div>
+    </div>
+
+    <!-- Custom Cursor -->
+    <div class="cursor" id="cursor"></div>
+    <div class="cursor-dot" id="cursor-dot"></div>
+
+    <!-- Background Elements -->
+    <div class="grid-background"></div>
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
+    <div class="orb orb3"></div>
+
+    <!-- Logo -->
+    <div class="logo">
+        <span>S</span><span>S</span><span>.</span>
     </div>
 
     <!-- Navigation -->
-    <nav class="navbar">
-        <div class="nav-content">
-            <div class="logo">SS</div>
-            <ul class="nav-links">
-                <li><a href="#about" class="nav-link">About</a></li>
-                <li><a href="#projects" class="nav-link">Projects</a></li>
-                <li><a href="#contact" class="nav-link">Contact</a></li>
-            </ul>
-        </div>
+    <nav>
+        <a href="#home" class="nav-dot active">
+            <span class="nav-tooltip">Home</span>
+        </a>
+        <a href="#projects" class="nav-dot">
+            <span class="nav-tooltip">Projects</span>
+        </a>
+        <a href="#skills" class="nav-dot">
+            <span class="nav-tooltip">Skills</span>
+        </a>
+        <a href="#experience" class="nav-dot">
+            <span class="nav-tooltip">Experience</span>
+        </a>
+        <a href="#contact" class="nav-dot">
+            <span class="nav-tooltip">Contact</span>
+        </a>
     </nav>
 
     <!-- Hero Section -->
     <section class="hero" id="home">
-        <div class="main-container">
-            <div class="hero-content">
-                <p class="hero-greeting">Mobile Developer</p>
-                <h1 class="hero-title">Shobhit Shah</h1>
-                <p class="hero-subtitle">React Native Specialist</p>
+        <div class="hero-content">
+            <div class="hero-text">
+                <div class="hero-label">REACT NATIVE DEVELOPER</div>
+                <h1>
+                    <span class="name-line">
+                        <span class="first-name">SHOBHIT</span>
+                    </span>
+                    <span class="name-line">
+                        <span class="last-name">SHAH</span>
+                    </span>
+                </h1>
                 <p class="hero-description">
-                    Crafting innovative mobile experiences that connect people worldwide. 
-                    Specialized in React Native development with published apps serving 
-                    healthcare, entertainment, fitness, and financial technology sectors.
+                    Crafting high-performance mobile experiences with 3+ years of expertise 
+                    in React Native, TypeScript, and cross-platform development. 
+                    Specialized in scalable architectures and innovative solutions.
                 </p>
                 <div class="hero-cta">
-                    <a href="#projects" class="cta-button">
-                        <span>Explore Projects</span>
-                    </a>
-                    <a href="#contact" class="cta-button cta-secondary">
-                        <span>Get In Touch</span>
-                    </a>
+                    <a href="#projects" class="btn btn-primary">VIEW WORK</a>
+                    <a href="#contact" class="btn btn-outline">CONTACT</a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="code-window window-1">
+                    <div class="code-window-header">
+                        <div class="window-dot dot-red"></div>
+                        <div class="window-dot dot-yellow"></div>
+                        <div class="window-dot dot-green"></div>
+                    </div>
+                    <div class="code-content">
+                        <div class="code-line"><span class="code-keyword">const</span> developer = {</div>
+                        <div class="code-line">  name: <span class="code-string">'Shobhit Shah'</span>,</div>
+                        <div class="code-line">  role: <span class="code-string">'Mobile Architect'</span>,</div>
+                        <div class="code-line">  apps: <span class="code-function">10+</span></div>
+                        <div class="code-line">};</div>
+                    </div>
+                </div>
+                <div class="code-window window-2">
+                    <div class="code-window-header">
+                        <div class="window-dot dot-red"></div>
+                        <div class="window-dot dot-yellow"></div>
+                        <div class="window-dot dot-green"></div>
+                    </div>
+                    <div class="code-content">
+                        <div class="code-line"><span class="code-comment">// Building the future</span></div>
+                        <div class="code-line"><span class="code-keyword">import</span> React from <span class="code-string">'react-native'</span>;</div>
+                        <div class="code-line"><span class="code-keyword">export</span> <span class="code-function">createApp</span>();</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1339,792 +1013,493 @@
 
     <!-- Projects Section -->
     <section class="projects" id="projects">
-        <div class="main-container">
-            <div class="section-header">
-                <h2 class="section-title">Published Apps</h2>
-                <p class="section-subtitle">
-                    Real-world applications serving thousands of users across different industries
-                </p>
+        <div class="section-header">
+            <div class="section-label">PORTFOLIO</div>
+            <h2 class="section-title">Featured Projects</h2>
+        </div>
+
+        <div class="projects-container">
+            <!-- Champion Spirit -->
+            <div class="project">
+                <div class="project-visual">
+                    <div class="app-mockup">
+                        <div class="app-screen">
+                            <svg class="app-logo" viewBox="0 0 100 100">
+                                <circle cx="50" cy="50" r="35" fill="none" stroke="#00ff88" stroke-width="3"/>
+                                <path d="M35 50 L45 60 L65 40" stroke="#00ff88" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                                <circle cx="50" cy="20" r="8" fill="#00ff88"/>
+                                <path d="M35 35 Q50 45 65 35" stroke="#00ff88" stroke-width="2" fill="none"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-info">
+                    <div class="project-number">01</div>
+                    <h3 class="project-title">Champion Spirit</h3>
+                    <p class="project-description">
+                        Luxury fitness & wellness app enabling users to find studios, explore trainers, 
+                        book classes, and manage memberships. Built with React Native, TypeScript, 
+                        Firebase, and features real-time updates, payment integration, and interactive maps.
+                    </p>
+                    <div class="project-tech">
+                        <span class="tech-tag">React Native</span>
+                        <span class="tech-tag">Expo</span>
+                        <span class="tech-tag">TypeScript</span>
+                        <span class="tech-tag">Firebase</span>
+                        <span class="tech-tag">Maps Integration</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://play.google.com/store/apps/details?id=com.championspirit.app" target="_blank" class="project-link">
+                            Play Store →
+                        </a>
+                        <a href="#" class="project-link">
+                            App Store →
+                        </a>
+                    </div>
+                </div>
             </div>
-            
-            <div class="projects-grid">
-                <!-- Vinea Healthcare App -->
-                <div class="project-card">
-                    <div class="project-header">
-                        <div class="project-icon">🏥</div>
-                        <div class="project-meta">
-                            <span class="project-category">Healthcare • AI-Powered</span>
-                            <span class="project-status">Live</span>
-                        </div>
-                        <h3 class="project-title">Vinea</h3>
-                    </div>
-                    
-                    <div class="project-body">
-                        <p class="project-description">
-                            Revolutionary mobile-first healthcare platform transforming Continuing Medical Education. 
-                            Features cutting-edge AI recommendations, seamless CME tracking, and comprehensive 
-                            license management for healthcare professionals worldwide.
-                        </p>
-                        
-                        <div class="project-stats">
-                            <div class="stat-item">
-                                <span class="stat-value">10K+</span>
-                                <span class="stat-label">Active Users</span>
-                            </div>
-                            <div class="stat-item">
-                                <span class="stat-value">95%</span>
-                                <span class="stat-label">User Satisfaction</span>
-                            </div>
-                            <div class="stat-item">
-                                <span class="stat-value">24/7</span>
-                                <span class="stat-label">AI Assistant</span>
-                            </div>
-                        </div>
 
-                        <ul class="project-features">
-                            <li>AI-powered personalized learning recommendations</li>
-                            <li>Automated CME and MOC credits tracking system</li>
-                            <li>Real-time budget management dashboard</li>
-                            <li>State license requirements monitoring</li>
-                            <li>Cross-platform synchronization</li>
-                        </ul>
-
-                        <div class="project-tech">
-                            <span class="tech-badge">React Native</span>
-                            <span class="tech-badge">AI/ML</span>
-                            <span class="tech-badge">Healthcare APIs</span>
-                            <span class="tech-badge">Push Notifications</span>
-                            <span class="tech-badge">Redux</span>
-                        </div>
-                    </div>
-                    
-                    <div class="project-footer">
-                        <div class="project-links">
-                            <a href="https://play.google.com/store/apps/details?id=com.vinea&hl=en_IN" class="project-link" target="_blank">
-                                <span>Play Store</span>
-                            </a>
+            <!-- Vinea -->
+            <div class="project">
+                <div class="project-visual">
+                    <div class="app-mockup">
+                        <div class="app-screen">
+                            <svg class="app-logo" viewBox="0 0 100 100">
+                                <rect x="25" y="25" width="50" height="50" rx="10" fill="none" stroke="#ff0088" stroke-width="2"/>
+                                <circle cx="50" cy="50" r="15" fill="#ff0088" opacity="0.3"/>
+                                <path d="M50 35 L50 65 M35 50 L65 50" stroke="#ff0088" stroke-width="3" stroke-linecap="round"/>
+                                <circle cx="30" cy="30" r="3" fill="#ff0088"/>
+                                <circle cx="70" cy="30" r="3" fill="#ff0088"/>
+                                <circle cx="30" cy="70" r="3" fill="#ff0088"/>
+                                <circle cx="70" cy="70" r="3" fill="#ff0088"/>
+                            </svg>
                         </div>
                     </div>
                 </div>
-
-                <!-- NoireTV Streaming App -->
-                <div class="project-card">
-                    <div class="project-header">
-                        <div class="project-icon">📺</div>
-                        <div class="project-meta">
-                            <span class="project-category">Entertainment • Streaming</span>
-                            <span class="project-status">Live</span>
-                        </div>
-                        <h3 class="project-title">NoireTV</h3>
+                <div class="project-info">
+                    <div class="project-number">02</div>
+                    <h3 class="project-title">Vinea Healthcare</h3>
+                    <p class="project-description">
+                        AI-powered CME platform for healthcare professionals. Features intelligent 
+                        course recommendations, automated credit tracking, secure document management, 
+                        and comprehensive compliance monitoring with real-time synchronization.
+                    </p>
+                    <div class="project-tech">
+                        <span class="tech-tag">React Native</span>
+                        <span class="tech-tag">TypeScript</span>
+                        <span class="tech-tag">AI/ML Integration</span>
+                        <span class="tech-tag">Firebase Auth</span>
+                        <span class="tech-tag">Firestore</span>
                     </div>
-                    
-                    <div class="project-body">
-                        <p class="project-description">
-                            Premium global streaming platform showcasing the finest black content worldwide. 
-                            Delivers seamless streaming experience across music, comedy, sports, drama, 
-                            and news content with revolutionary user interface.
-                        </p>
-                        
-                        <div class="project-stats">
-                            <div class="stat-item">
-                                <span class="stat-value">50K+</span>
-                                <span class="stat-label">Global Users</span>
-                            </div>
-                            <div class="stat-item">
-                                <span class="stat-value">1000+</span>
-                                <span class="stat-label">Hours Content</span>
-                            </div>
-                            <div class="stat-item">
-                                <span class="stat-value">4.8★</span>
-                                <span class="stat-label">App Rating</span>
-                            </div>
-                        </div>
-
-                        <ul class="project-features">
-                            <li>High-quality video streaming with adaptive bitrate</li>
-                            <li>Multi-category content discovery engine</li>
-                            <li>Offline download and watch capabilities</li>
-                            <li>Personalized content recommendations</li>
-                            <li>Social sharing and community features</li>
-                        </ul>
-
-                        <div class="project-tech">
-                            <span class="tech-badge">React Native</span>
-                            <span class="tech-badge">Video Streaming</span>
-                            <span class="tech-badge">CDN</span>
-                            <span class="tech-badge">Analytics</span>
-                            <span class="tech-badge">Social APIs</span>
-                        </div>
+                    <div class="project-links">
+                        <a href="https://play.google.com/store/apps/details?id=com.vinea" target="_blank" class="project-link">
+                            Play Store →
+                        </a>
+                        <a href="#" class="project-link">
+                            App Store →
+                        </a>
                     </div>
-                    
-                    <div class="project-footer">
-                        <div class="project-links">
-                            <a href="https://play.google.com/store/apps/details?id=com.noiretv&hl=en_IN" class="project-link" target="_blank">
-                                <span>Play Store</span>
-                            </a>
+                </div>
+            </div>
+
+            <!-- Deemit -->
+            <div class="project">
+                <div class="project-visual">
+                    <div class="app-mockup">
+                        <div class="app-screen">
+                            <svg class="app-logo" viewBox="0 0 100 100">
+                                <rect x="20" y="30" width="60" height="40" rx="5" fill="none" stroke="#00d4ff" stroke-width="2"/>
+                                <rect x="25" y="35" width="50" height="30" fill="#00d4ff" opacity="0.2"/>
+                                <rect x="30" y="40" width="10" height="10" fill="#00d4ff"/>
+                                <rect x="45" y="40" width="10" height="10" fill="#00d4ff"/>
+                                <rect x="60" y="40" width="10" height="10" fill="#00d4ff"/>
+                                <rect x="30" y="55" width="40" height="2" fill="#00d4ff"/>
+                            </svg>
                         </div>
                     </div>
                 </div>
-
-                <!-- Champion Spirit Fitness App -->
-                <div class="project-card">
-                    <div class="project-header">
-                        <div class="project-icon">💪</div>
-                        <div class="project-meta">
-                            <span class="project-category">Fitness • Scheduling</span>
-                            <span class="project-status">Live</span>
-                        </div>
-                        <h3 class="project-title">Champion Spirit</h3>
+                <div class="project-info">
+                    <div class="project-number">03</div>
+                    <h3 class="project-title">Deemit</h3>
+                    <p class="project-description">
+                        Local deals & events platform with QR/barcode redemption, community fundraiser 
+                        support, interactive maps, and push notifications. Features Google Calendar 
+                        integration and real-time tracking for seamless user experience.
+                    </p>
+                    <div class="project-tech">
+                        <span class="tech-tag">React Native</span>
+                        <span class="tech-tag">Redux</span>
+                        <span class="tech-tag">QR Scanner</span>
+                        <span class="tech-tag">Push Notifications</span>
+                        <span class="tech-tag">Maps API</span>
                     </div>
-                    
-                    <div class="project-body">
-                        <p class="project-description">
-                            Comprehensive fitness ecosystem for Champion Spirit PARIS studio. Features 
-                            intelligent class scheduling, member management, real-time promotions, 
-                            and seamless studio integration with social connectivity.
-                        </p>
-                        
-                        <div class="project-stats">
-                            <div class="stat-item">
-                                <span class="stat-value">2K+</span>
-                                <span class="stat-label">Active Members</span>
-                            </div>
-                            <div class="stat-item">
-                                <span class="stat-value">500+</span>
-                                <span class="stat-label">Classes/Month</span>
-                            </div>
-                            <div class="stat-item">
-                                <span class="stat-value">98%</span>
-                                <span class="stat-label">Booking Success</span>
-                            </div>
-                        </div>
-
-                        <ul class="project-features">
-                            <li>Real-time class scheduling and instant registration</li>
-                            <li>Dynamic promotions and offers display system</li>
-                            <li>GPS-enabled studio location services</li>
-                            <li>Integrated social media connectivity</li>
-                            <li>Personalized member profile management</li>
-                        </ul>
-
-                        <div class="project-tech">
-                            <span class="tech-badge">React Native</span>
-                            <span class="tech-badge">Calendar API</span>
-                            <span class="tech-badge">Location Services</span>
-                            <span class="tech-badge">Social SDKs</span>
-                            <span class="tech-badge">Firebase</span>
-                        </div>
+                    <div class="project-links">
+                        <a href="https://play.google.com/store/apps/details?id=com.deemit" target="_blank" class="project-link">
+                            Play Store →
+                        </a>
+                        <a href="#" class="project-link">
+                            App Store →
+                        </a>
                     </div>
-                    
-                    <div class="project-footer">
-                        <div class="project-links">
-                            <a href="https://play.google.com/store/apps/details?id=com.championspirit.app&hl=en_IN" class="project-link" target="_blank">
-                                <span>Play Store</span>
-                            </a>
+                </div>
+            </div>
+
+            <!-- Fetan Gift -->
+            <div class="project">
+                <div class="project-visual">
+                    <div class="app-mockup">
+                        <div class="app-screen">
+                            <svg class="app-logo" viewBox="0 0 100 100">
+                                <path d="M50 20 L65 35 L60 50 L50 45 L40 50 L35 35 Z" fill="none" stroke="#00ff88" stroke-width="2"/>
+                                <circle cx="50" cy="60" r="15" fill="none" stroke="#00ff88" stroke-width="2"/>
+                                <path d="M50 60 L50 75" stroke="#00ff88" stroke-width="2"/>
+                                <path d="M42 65 L58 65" stroke="#00ff88" stroke-width="2"/>
+                            </svg>
                         </div>
                     </div>
                 </div>
-
-                <!-- Fetan Gift Card App -->
-                <div class="project-card">
-                    <div class="project-header">
-                        <div class="project-icon">🎁</div>
-                        <div class="project-meta">
-                            <span class="project-category">FinTech • Global Payments</span>
-                            <span class="project-status">Live</span>
-                        </div>
-                        <h3 class="project-title">Fetan Gift</h3>
+                <div class="project-info">
+                    <div class="project-number">04</div>
+                    <h3 class="project-title">Fetan Gift</h3>
+                    <p class="project-description">
+                        Digital gift card platform with PayPal integration serving 1000+ users. 
+                        Features secure payment processing, Redux state management, and scalable 
+                        TypeScript architecture for seamless cross-platform transactions.
+                    </p>
+                    <div class="project-tech">
+                        <span class="tech-tag">React Native</span>
+                        <span class="tech-tag">TypeScript</span>
+                        <span class="tech-tag">Redux</span>
+                        <span class="tech-tag">PayPal SDK</span>
+                        <span class="tech-tag">Secure Payments</span>
                     </div>
-                    
-                    <div class="project-body">
-                        <p class="project-description">
-                            Revolutionary cross-border digital gift card platform connecting Ethiopians 
-                            globally. Features secure international transactions, local business partnerships, 
-                            and seamless gift delivery across continents.
-                        </p>
-                        
-                        <div class="project-stats">
-                            <div class="stat-item">
-                                <span class="stat-value">25K+</span>
-                                <span class="stat-label">Transactions</span>
-                            </div>
-                            <div class="stat-item">
-                                <span class="stat-value">15+</span>
-                                <span class="stat-label">Countries</span>
-                            </div>
-                            <div class="stat-item">
-                                <span class="stat-value">99.9%</span>
-                                <span class="stat-label">Uptime</span>
-                            </div>
-                        </div>
-
-                        <ul class="project-features">
-                            <li>Instant cross-border digital gift card delivery</li>
-                            <li>Multi-gateway secure payment processing</li>
-                            <li>Extensive local business partner network</li>
-                            <li>Real-time transaction tracking system</li>
-                            <li>Multi-language and currency support</li>
-                        </ul>
-
-                        <div class="project-tech">
-                            <span class="tech-badge">React Native</span>
-                            <span class="tech-badge">Payment Gateways</span>
-                            <span class="tech-badge">International APIs</span>
-                            <span class="tech-badge">Security</span>
-                            <span class="tech-badge">TypeScript</span>
-                        </div>
+                    <div class="project-links">
+                        <a href="https://play.google.com/store/apps/details?id=com.fetan.giftcard" target="_blank" class="project-link">
+                            Play Store →
+                        </a>
+                        <a href="#" class="project-link">
+                            App Store →
+                        </a>
                     </div>
-                    
-                    <div class="project-footer">
-                        <div class="project-links">
-                            <a href="https://play.google.com/store/apps/details?id=com.fetan.giftcard&hl=en_IN" class="project-link" target="_blank">
-                                <span>Play Store</span>
-                            </a>
+                </div>
+            </div>
+
+            <!-- NoireTV -->
+            <div class="project">
+                <div class="project-visual">
+                    <div class="app-mockup">
+                        <div class="app-screen">
+                            <svg class="app-logo" viewBox="0 0 100 100">
+                                <rect x="25" y="35" width="50" height="30" rx="5" fill="none" stroke="#ff0088" stroke-width="2"/>
+                                <path d="M35 50 L45 45 L45 55 Z" fill="#ff0088"/>
+                                <circle cx="70" cy="25" r="5" fill="none" stroke="#ff0088" stroke-width="2"/>
+                                <path d="M70 30 L70 40" stroke="#ff0088" stroke-width="2"/>
+                            </svg>
                         </div>
                     </div>
                 </div>
-
-                <!-- DailySync -->
-                <div class="project-card">
-                    <div class="project-header">
-                        <div class="project-icon">📱</div>
-                        <div class="project-meta">
-                            <span class="project-category">Productivity • Multi-Platform</span>
-                            <span class="project-status">Live</span>
-                        </div>
-                        <h3 class="project-title">DailySync</h3>
+                <div class="project-info">
+                    <div class="project-number">05</div>
+                    <h3 class="project-title">NoireTV</h3>
+                    <p class="project-description">
+                        OTT streaming platform with multilingual support (13 languages), in-app payments, 
+                        program reminders, and advanced media player. Delivers high-quality content 
+                        streaming with seamless user experience across devices.
+                    </p>
+                    <div class="project-tech">
+                        <span class="tech-tag">React Native</span>
+                        <span class="tech-tag">Video Streaming</span>
+                        <span class="tech-tag">i18n</span>
+                        <span class="tech-tag">Payment Gateway</span>
+                        <span class="tech-tag">Media Player</span>
                     </div>
-                    
-                    <div class="project-body">
-                        <p class="project-description">
-                            Ultimate productivity powerhouse integrating WhatsApp, Gmail, SMS and more. 
-                            Revolutionary reminder system with intelligent scheduling, cross-platform 
-                            synchronization, and intuitive task management.
-                        </p>
-                        
-                        <div class="project-stats">
-                            <div class="stat-item">
-                                <span class="stat-value">5K+</span>
-                                <span class="stat-label">Downloads</span>
-                            </div>
-                            <div class="stat-item">
-                                <span class="stat-value">100K+</span>
-                                <span class="stat-label">Reminders Sent</span>
-                            </div>
-                            <div class="stat-item">
-                                <span class="stat-value">4.6★</span>
-                                <span class="stat-label">User Rating</span>
-                            </div>
-                        </div>
-
-                        <ul class="project-features">
-                            <li>WhatsApp & WhatsApp Business integration</li>
-                            <li>Smart SMS and Gmail reminder scheduling</li>
-                            <li>Phone call reminder automation</li>
-                            <li>Intuitive drag-and-drop interface</li>
-                            <li>Multi-platform synchronization</li>
-                        </ul>
-
-                        <div class="project-tech">
-                            <span class="tech-badge">React Native</span>
-                            <span class="tech-badge">API Integration</span>
-                            <span class="tech-badge">Notifications</span>
-                            <span class="tech-badge">Background Tasks</span>
-                            <span class="tech-badge">Redux</span>
-                        </div>
-                    </div>
-                    
-                    <div class="project-footer">
-                        <div class="project-links">
-                            <a href="https://github.com/ShobhitShah1/TaskWave-DailySync" class="project-link" target="_blank">
-                                <span>GitHub</span>
-                            </a>
-                            <a href="https://play.google.com/store/apps/details?id=com.taskwave.dailysync" class="project-link" target="_blank">
-                                <span>Play Store</span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- MoodDating -->
-                <div class="project-card">
-                    <div class="project-header">
-                        <div class="project-icon">💕</div>
-                        <div class="project-meta">
-                            <span class="project-category">Social • Dating Platform</span>
-                            <span class="project-status">Development</span>
-                        </div>
-                        <h3 class="project-title">MoodDating</h3>
-                    </div>
-                    
-                    <div class="project-body">
-                        <p class="project-description">
-                            Next-generation dating platform leveraging mood-based compatibility algorithms. 
-                            Features advanced AI matching, real-time communication, and innovative 
-                            social dynamics for authentic relationship building.
-                        </p>
-                        
-                        <div class="project-stats">
-                            <div class="stat-item">
-                                <span class="stat-value">AI</span>
-                                <span class="stat-label">Matching</span>
-                            </div>
-                            <div class="stat-item">
-                                <span class="stat-value">Real-time</span>
-                                <span class="stat-label">Chat</span>
-                            </div>
-                            <div class="stat-item">
-                                <span class="stat-value">TypeScript</span>
-                                <span class="stat-label">Built With</span>
-                            </div>
-                        </div>
-
-                        <ul class="project-features">
-                            <li>Advanced mood-based matching algorithms</li>
-                            <li>Real-time chat with typing indicators</li>
-                            <li>AI-powered profile optimization</li>
-                            <li>Privacy-first location-based discovery</li>
-                            <li>Advanced security and safety features</li>
-                        </ul>
-
-                        <div class="project-tech">
-                            <span class="tech-badge">React Native</span>
-                            <span class="tech-badge">TypeScript</span>
-                            <span class="tech-badge">Firebase</span>
-                            <span class="tech-badge">Real-time Chat</span>
-                            <span class="tech-badge">AI/ML</span>
-                        </div>
-                    </div>
-                    
-                    <div class="project-footer">
-                        <div class="project-links">
-                            <a href="https://github.com/ShobhitShah1/MoodDating" class="project-link" target="_blank">
-                                <span>GitHub</span>
-                            </a>
-                        </div>
+                    <div class="project-links">
+                        <a href="https://play.google.com/store/apps/details?id=com.noiretv" target="_blank" class="project-link">
+                            Play Store →
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- About Section -->
-    <section class="about" id="about">
-        <div class="main-container">
-            <div class="section-header">
-                <h2 class="section-title">About Me</h2>
+    <!-- Skills Section -->
+    <section class="skills" id="skills">
+        <div class="section-header">
+            <div class="section-label">EXPERTISE</div>
+            <h2 class="section-title">Technical Skills</h2>
+        </div>
+
+        <div class="skills-grid">
+            <div class="skill-card">
+                <svg class="skill-icon" viewBox="0 0 100 100">
+                    <rect x="20" y="20" width="60" height="60" rx="10" fill="none" stroke="currentColor" stroke-width="2"/>
+                    <path d="M35 40 L50 55 L65 40" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/>
+                    <path d="M35 60 L50 45 L65 60" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/>
+                </svg>
+                <h3 class="skill-title">Languages</h3>
+                <div class="skill-list">
+                    JavaScript (ES6+), TypeScript, JSX, JSON
+                </div>
             </div>
-            
-            <div class="about-container">
-                <div class="about-content">
-                    <p class="about-intro">
-                        I'm a <span class="about-highlight">React Native specialist</span> with a passion for creating 
-                        mobile experiences that transform industries and connect people globally. My expertise spans 
-                        from <span class="about-highlight">AI-powered healthcare platforms</span> to 
-                        <span class="about-highlight">international fintech solutions</span>.
+
+            <div class="skill-card">
+                <svg class="skill-icon" viewBox="0 0 100 100">
+                    <circle cx="50" cy="50" r="30" fill="none" stroke="currentColor" stroke-width="2"/>
+                    <circle cx="50" cy="50" r="20" fill="none" stroke="currentColor" stroke-width="2"/>
+                    <circle cx="50" cy="50" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
+                    <circle cx="50" cy="50" r="3" fill="currentColor"/>
+                </svg>
+                <h3 class="skill-title">Frameworks</h3>
+                <div class="skill-list">
+                    React Native, Expo, React.js, Node.js, Express
+                </div>
+            </div>
+
+            <div class="skill-card">
+                <svg class="skill-icon" viewBox="0 0 100 100">
+                    <path d="M30 30 L70 30 L70 70 L30 70 Z" fill="none" stroke="currentColor" stroke-width="2"/>
+                    <path d="M30 50 L70 50" stroke="currentColor" stroke-width="2"/>
+                    <path d="M50 30 L50 70" stroke="currentColor" stroke-width="2"/>
+                </svg>
+                <h3 class="skill-title">State Management</h3>
+                <div class="skill-list">
+                    Redux, Zustand, React Query, Context API, MobX
+                </div>
+            </div>
+
+            <div class="skill-card">
+                <svg class="skill-icon" viewBox="0 0 100 100">
+                    <path d="M25 40 C25 30, 35 20, 50 20 C65 20, 75 30, 75 40 L75 60 C75 70, 65 80, 50 80 C35 80, 25 70, 25 60 Z" fill="none" stroke="currentColor" stroke-width="2"/>
+                    <circle cx="40" cy="40" r="3" fill="currentColor"/>
+                    <circle cx="60" cy="40" r="3" fill="currentColor"/>
+                    <circle cx="50" cy="60" r="3" fill="currentColor"/>
+                </svg>
+                <h3 class="skill-title">Backend & Cloud</h3>
+                <div class="skill-list">
+                    Firebase, RESTful APIs, GraphQL, MongoDB, PostgreSQL
+                </div>
+            </div>
+
+            <div class="skill-card">
+                <svg class="skill-icon" viewBox="0 0 100 100">
+                    <rect x="25" y="35" width="50" height="30" rx="5" fill="none" stroke="currentColor" stroke-width="2"/>
+                    <circle cx="35" cy="50" r="3" fill="currentColor"/>
+                    <circle cx="50" cy="50" r="3" fill="currentColor"/>
+                    <circle cx="65" cy="50" r="3" fill="currentColor"/>
+                </svg>
+                <h3 class="skill-title">DevOps & Tools</h3>
+                <div class="skill-list">
+                    Git, GitHub Actions, CI/CD, Docker, AWS, Fastlane
+                </div>
+            </div>
+
+            <div class="skill-card">
+                <svg class="skill-icon" viewBox="0 0 100 100">
+                    <polygon points="50,20 70,35 70,65 50,80 30,65 30,35" fill="none" stroke="currentColor" stroke-width="2"/>
+                    <circle cx="50" cy="50" r="10" fill="currentColor" opacity="0.3"/>
+                </svg>
+                <h3 class="skill-title">Core Concepts</h3>
+                <div class="skill-list">
+                    Cross-platform Development, Real-time Sync, Performance Optimization, Agile
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section class="experience" id="experience">
+        <div class="section-header">
+            <div class="section-label">JOURNEY</div>
+            <h2 class="section-title">Experience</h2>
+        </div>
+
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-date">JULY 2022 - PRESENT</div>
+                    <h3 class="timeline-title">React Native Developer</h3>
+                    <p class="timeline-company">Vasundhara Infotech, Surat</p>
+                    <p class="timeline-description">
+                        Developed and deployed 10+ cross-platform mobile applications for iOS and Android. 
+                        Led full app lifecycle from architecture design to deployment. Integrated RESTful APIs, 
+                        managed local storage, and optimized performance across various projects.
                     </p>
-                    
-                    <div class="about-journey">
-                        <div class="journey-item">
-                            <div class="journey-number">01</div>
-                            <h4 class="journey-title">Innovation Focus</h4>
-                            <p class="journey-text">
-                                Specialized in building cutting-edge mobile applications that leverage AI, 
-                                real-time technologies, and complex integrations to solve real-world problems 
-                                across healthcare, entertainment, and financial sectors.
-                            </p>
-                        </div>
-                        
-                        <div class="journey-item">
-                            <div class="journey-number">02</div>
-                            <h4 class="journey-title">Global Impact</h4>
-                            <p class="journey-text">
-                                My applications serve users across multiple continents, from healthcare professionals 
-                                in the US to families connecting across Africa. Every app is built with scalability, 
-                                security, and user experience at its core.
-                            </p>
-                        </div>
-                        
-                        <div class="journey-item">
-                            <div class="journey-number">03</div>
-                            <h4 class="journey-title">Technical Excellence</h4>
-                            <p class="journey-text">
-                                Committed to clean architecture, optimal performance, and cutting-edge technologies. 
-                                I stay at the forefront of React Native development, constantly exploring new 
-                                possibilities in mobile innovation.
-                            </p>
-                        </div>
-                    </div>
-                    
-                    <div class="about-stats">
-                        <div class="stat-card">
-                            <span class="stat-number">6+</span>
-                            <span class="stat-text">Published Apps</span>
-                        </div>
-                        <div class="stat-card">
-                            <span class="stat-number">90K+</span>
-                            <span class="stat-text">Total Downloads</span>
-                        </div>
-                    </div>
-                    
-                    <div class="about-cta">
-                        <a href="#projects" class="cta-link">
-                            <span>Explore My Work</span>
-                        </a>
-                        <a href="#contact" class="cta-link">
-                            <span>Start a Project</span>
-                        </a>
-                    </div>
                 </div>
-                
-                <div class="skills-showcase">
-                    <div class="skills-grid">
-                        <div class="skill-category">
-                            <div class="skill-header">
-                                <h3 class="skill-title">Core Technologies</h3>
-                                <span class="skill-count">8</span>
-                            </div>
-                            <div class="skill-items">
-                                <div class="skill-item">React Native</div>
-                                <div class="skill-item">JavaScript</div>
-                                <div class="skill-item">TypeScript</div>
-                                <div class="skill-item">Expo</div>
-                                <div class="skill-item">Redux</div>
-                                <div class="skill-item">React Query</div>
-                                <div class="skill-item">Styled Components</div>
-                                <div class="skill-item">AsyncStorage</div>
-                            </div>
-                        </div>
-
-                        <div class="skill-category">
-                            <div class="skill-header">
-                                <h3 class="skill-title">Backend & APIs</h3>
-                                <span class="skill-count">7</span>
-                            </div>
-                            <div class="skill-items">
-                                <div class="skill-item">Firebase</div>
-                                <div class="skill-item">REST APIs</div>
-                                <div class="skill-item">GraphQL</div>
-                                <div class="skill-item">WebSocket</div>
-                                <div class="skill-item">Node.js</div>
-                                <div class="skill-item">MongoDB</div>
-                                <div class="skill-item">PostgreSQL</div>
-                            </div>
-                        </div>
-
-                        <div class="skill-category">
-                            <div class="skill-header">
-                                <h3 class="skill-title">Specialized Features</h3>
-                                <span class="skill-count">9</span>
-                            </div>
-                            <div class="skill-items">
-                                <div class="skill-item">Payment Gateways</div>
-                                <div class="skill-item">Video Streaming</div>
-                                <div class="skill-item">Push Notifications</div>
-                                <div class="skill-item">Real-time Chat</div>
-                                <div class="skill-item">AI Integration</div>
-                                <div class="skill-item">Geolocation</div>
-                                <div class="skill-item">Biometric Auth</div>
-                                <div class="skill-item">Background Tasks</div>
-                                <div class="skill-item">Deep Linking</div>
-                            </div>
-                        </div>
-
-                        <div class="skill-category">
-                            <div class="skill-header">
-                                <h3 class="skill-title">Development Tools</h3>
-                                <span class="skill-count">8</span>
-                            </div>
-                            <div class="skill-items">
-                                <div class="skill-item">Android Studio</div>
-                                <div class="skill-item">Xcode</div>
-                                <div class="skill-item">VS Code</div>
-                                <div class="skill-item">Git</div>
-                                <div class="skill-item">Flipper</div>
-                                <div class="skill-item">Fastlane</div>
-                                <div class="skill-item">CodePush</div>
-                                <div class="skill-item">Detox</div>
-                            </div>
-                        </div>
-
-                        <div class="skill-category">
-                            <div class="skill-header">
-                                <h3 class="skill-title">Platform & Deployment</h3>
-                                <span class="skill-count">6</span>
-                            </div>
-                            <div class="skill-items">
-                                <div class="skill-item">Google Play Console</div>
-                                <div class="skill-item">App Store Connect</div>
-                                <div class="skill-item">Firebase Console</div>
-                                <div class="skill-item">AWS</div>
-                                <div class="skill-item">Heroku</div>
-                                <div class="skill-item">Vercel</div>
-                            </div>
-                        </div>
-
-                        <div class="skill-category">
-                            <div class="skill-header">
-                                <h3 class="skill-title">Testing & Quality</h3>
-                                <span class="skill-count">5</span>
-                            </div>
-                            <div class="skill-items">
-                                <div class="skill-item">Jest</div>
-                                <div class="skill-item">React Native Testing</div>
-                                <div class="skill-item">Detox E2E</div>
-                                <div class="skill-item">ESLint</div>
-                                <div class="skill-item">Prettier</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <div></div>
             </div>
         </div>
     </section>
 
     <!-- Contact Section -->
     <section class="contact" id="contact">
-        <div class="main-container">
-            <div class="contact-content">
-                <h2 class="contact-title">Let's Build Together</h2>
-                <p class="contact-description">
-                    Ready to create the next innovative mobile experience? Let's discuss your project 
-                    and explore how we can bring your vision to life through cutting-edge React Native development.
-                </p>
-                <div class="contact-links">
-                    <a href="mailto:hello@shobhitshah.dev" class="contact-link">
-                        <span>📧</span>
-                        <span>Email</span>
-                    </a>
-                    <a href="https://www.linkedin.com/in/shobhit-shah-9445a321b/" class="contact-link" target="_blank">
-                        <span>💼</span>
-                        <span>LinkedIn</span>
-                    </a>
-                    <a href="https://github.com/ShobhitShah1" class="contact-link" target="_blank">
-                        <span>💻</span>
-                        <span>GitHub</span>
-                    </a>
-                </div>
+        <div class="contact-content">
+            <div class="section-header">
+                <div class="section-label">CONNECT</div>
+                <h2 class="section-title">Let's Build Something Amazing</h2>
+            </div>
+            <p class="contact-description">
+                Ready to bring your mobile app idea to life? Let's discuss how we can create 
+                exceptional cross-platform experiences together.
+            </p>
+            <div class="contact-links">
+                <a href="tel:+917041526621" class="contact-link">
+                    <div class="contact-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                        </svg>
+                    </div>
+                    <span>Phone</span>
+                </a>
+                <a href="mailto:shobhitshah094@gmail.com" class="contact-link">
+                    <div class="contact-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                            <polyline points="22,6 12,13 2,6"/>
+                        </svg>
+                    </div>
+                    <span>Email</span>
+                </a>
+                <a href="https://github.com/ShobhitShah1" target="_blank" class="contact-link">
+                    <div class="contact-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                        </svg>
+                    </div>
+                    <span>GitHub</span>
+                </a>
+                <a href="https://linkedin.com/in/shobhitshah" target="_blank" class="contact-link">
+                    <div class="contact-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                        </svg>
+                    </div>
+                    <span>LinkedIn</span>
+                </a>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="footer">
-        <div class="main-container">
-            <p>&copy; 2024 Shobhit Shah. Crafting mobile experiences that matter.</p>
-        </div>
+    <footer>
+        <p>© 2024 Shobhit Shah. Designed & Built with passion.</p>
     </footer>
 
     <script>
-        // Enhanced space background creation
-        function createEnhancedSpace() {
-            const starsContainer = document.querySelector('.stars-layer');
-            
-            // Create stars
-            const starCount = 200;
-            for (let i = 0; i < starCount; i++) {
-                const star = document.createElement('div');
-                const size = Math.random() < 0.7 ? 'small' : Math.random() < 0.9 ? 'medium' : 'large';
-                star.className = `star ${size}`;
-                star.style.left = Math.random() * 100 + '%';
-                star.style.top = Math.random() * 100 + '%';
-                star.style.animationDelay = Math.random() * 4 + 's';
-                star.style.animationDuration = (Math.random() * 3 + 2) + 's';
-                starsContainer.appendChild(star);
-            }
+        // Custom Cursor
+        const cursor = document.getElementById('cursor');
+        const cursorDot = document.getElementById('cursor-dot');
+        
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+            cursorDot.style.left = e.clientX + 'px';
+            cursorDot.style.top = e.clientY + 'px';
+        });
 
-            // Create shooting stars
-            for (let i = 0; i < 5; i++) {
-                const shootingStar = document.createElement('div');
-                shootingStar.className = 'shooting-star';
-                shootingStar.style.left = Math.random() * 100 + '%';
-                shootingStar.style.top = Math.random() * 100 + '%';
-                shootingStar.style.animationDelay = Math.random() * 12 + 's';
-                starsContainer.appendChild(shootingStar);
-            }
+        // Add hover effect to cursor
+        const hoverElements = document.querySelectorAll('a, button, .nav-dot, .project-link, .contact-link');
+        hoverElements.forEach(element => {
+            element.addEventListener('mouseenter', () => {
+                cursor.classList.add('hover');
+            });
+            element.addEventListener('mouseleave', () => {
+                cursor.classList.remove('hover');
+            });
+        });
 
-            // Create constellation lines
-            createConstellation(20, 20);
-            createConstellation(70, 60);
-            createConstellation(40, 80);
-        }
+        // Loader
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loader').classList.add('hidden');
+            }, 1000);
+        });
 
-        function createConstellation(x, y) {
-            const constellation = document.createElement('div');
-            constellation.className = 'constellation';
-            constellation.style.left = x + '%';
-            constellation.style.top = y + '%';
-            
-            // Create constellation pattern
-            for (let i = 0; i < 4; i++) {
-                const line = document.createElement('div');
-                line.className = 'constellation-line';
-                line.style.width = (Math.random() * 50 + 30) + 'px';
-                line.style.left = Math.random() * 100 + 'px';
-                line.style.top = Math.random() * 100 + 'px';
-                line.style.transform = `rotate(${Math.random() * 360}deg)`;
-                constellation.appendChild(line);
-            }
-            
-            document.querySelector('.stars-layer').appendChild(constellation);
-        }
+        // Navigation Active State
+        const sections = document.querySelectorAll('section');
+        const navDots = document.querySelectorAll('.nav-dot');
 
-        // Intersection Observer for project cards
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navDots.forEach(dot => {
+                dot.classList.remove('active');
+                if (dot.getAttribute('href').substring(1) === current) {
+                    dot.classList.add('active');
+                }
+            });
+        });
+
+        // Smooth Scrolling
+        navDots.forEach(dot => {
+            dot.addEventListener('click', (e) => {
+                e.preventDefault();
+                const target = document.querySelector(dot.getAttribute('href'));
+                target.scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        // Intersection Observer for Animations
         const observerOptions = {
-            threshold: 0.2,
-            rootMargin: '0px 0px -50px 0px'
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
         };
 
         const observer = new IntersectionObserver((entries) => {
-            entries.forEach((entry, index) => {
+            entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    setTimeout(() => {
-                        entry.target.classList.add('visible');
-                    }, index * 200);
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
                 }
             });
         }, observerOptions);
 
-        // Smooth scrolling
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
+        // Observe all sections
+        document.querySelectorAll('.project, .skill-card, .timeline-item').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.6s ease';
+            observer.observe(el);
         });
 
-        // Parallax effect for space elements
-        let ticking = false;
-        
-        function updateParallax() {
-            const scrolled = window.pageYOffset;
-            const stars = document.querySelectorAll('.star');
-            const nebulas = document.querySelectorAll('.nebula');
-            
-            stars.forEach((star, index) => {
-                const speed = (index % 5 + 1) * 0.3;
-                star.style.transform = `translateY(${scrolled * speed}px)`;
-            });
-
-            nebulas.forEach((nebula, index) => {
-                const speed = (index + 1) * 0.1;
-                nebula.style.transform = `translateY(${scrolled * speed}px)`;
-            });
-            
-            ticking = false;
-        }
-
-        window.addEventListener('scroll', function() {
-            if (!ticking) {
-                requestAnimationFrame(updateParallax);
-                ticking = true;
-            }
-        });
-
-        // Navbar scroll effect
+        // Parallax effect for orbs
         window.addEventListener('scroll', () => {
-            const navbar = document.querySelector('.navbar');
-            if (window.scrollY > 100) {
-                navbar.style.background = 'rgba(10, 10, 10, 0.95)';
-            } else {
-                navbar.style.background = 'rgba(10, 10, 10, 0.8)';
-            }
+            const scrolled = window.pageYOffset;
+            const orbs = document.querySelectorAll('.orb');
+            
+            orbs.forEach((orb, index) => {
+                const speed = (index + 1) * 0.5;
+                orb.style.transform = `translateY(${scrolled * speed * 0.1}px)`;
+            });
         });
 
-        // Mouse tracking for project cards
-        function addMouseTracking() {
-            const cards = document.querySelectorAll('.project-card');
-            
-            cards.forEach(card => {
-                card.addEventListener('mousemove', (e) => {
-                    const rect = card.getBoundingClientRect();
-                    const x = ((e.clientX - rect.left) / rect.width) * 100;
-                    const y = ((e.clientY - rect.top) / rect.height) * 100;
-                    
-                    card.style.setProperty('--mouse-x', `${x}%`);
-                    card.style.setProperty('--mouse-y', `${y}%`);
-                });
-                
-                card.addEventListener('mouseleave', () => {
-                    card.style.setProperty('--mouse-x', '50%');
-                    card.style.setProperty('--mouse-y', '50%');
-                });
-            });
+        // Mobile Menu (for mobile responsiveness)
+        const mobileMenuBtn = document.createElement('div');
+        mobileMenuBtn.className = 'mobile-menu-btn';
+        mobileMenuBtn.innerHTML = '<span></span><span></span><span></span>';
+        mobileMenuBtn.style.cssText = 'display: none; position: fixed; top: 20px; right: 20px; z-index: 1001; width: 30px; height: 30px; cursor: pointer;';
+        
+        if (window.innerWidth <= 768) {
+            document.body.appendChild(mobileMenuBtn);
+            mobileMenuBtn.style.display = 'block';
         }
 
-        // Enhanced intersection observer with staggered animations
-        const observerOptionsSec = {
-            threshold: 0.15,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach((entry, index) => {
-                if (entry.isIntersecting) {
-                    setTimeout(() => {
-                        entry.target.classList.add('visible');
-                    }, index * 150);
-                }
-            });
-        }, observerOptionsSec);
-
-        // Skill category hover effects
-        function addSkillInteractions() {
-            const skillCategories = document.querySelectorAll('.skill-category');
-            
-            skillCategories.forEach(category => {
-                category.addEventListener('mouseenter', () => {
-                    const items = category.querySelectorAll('.skill-item');
-                    items.forEach((item, index) => {
-                        setTimeout(() => {
-                            item.style.transform = 'translateY(-3px) scale(1.05)';
-                        }, index * 50);
-                    });
-                });
-                
-                category.addEventListener('mouseleave', () => {
-                    const items = category.querySelectorAll('.skill-item');
-                    items.forEach((item, index) => {
-                        setTimeout(() => {
-                            item.style.transform = 'translateY(0) scale(1)';
-                        }, index * 30);
-                    });
-                });
-            });
-        }
-
-        // Initialize everything
-        document.addEventListener('DOMContentLoaded', function() {
-            createEnhancedSpace();
-            addMouseTracking();
-            addSkillInteractions();
-            
-            // Observe project cards and other elements
-            document.querySelectorAll('.project-card, .journey-item, .stat-card').forEach(element => {
-                observer.observe(element);
-            });
-            
-            // Add loading states for better UX
+        // Dynamic project numbering animation
+        const projectNumbers = document.querySelectorAll('.project-number');
+        projectNumbers.forEach((num, index) => {
+            num.style.opacity = '0';
             setTimeout(() => {
-                document.body.classList.add('loaded');
-            }, 500);
-        });
-
-        // Accessibility
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Tab') {
-                document.body.classList.add('keyboard-navigation');
-            }
-        });
-
-        document.addEventListener('mousedown', () => {
-            document.body.classList.remove('keyboard-navigation');
+                num.style.transition = 'all 1s ease';
+                num.style.opacity = '0.1';
+            }, index * 200);
         });
     </script>
 </body>
