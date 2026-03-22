@@ -402,6 +402,10 @@ window.PORTFOLIO_CONFIG = {
         path: "ShobhitCV.pdf",
         downloadName: "Shobhit-Shah-CV.pdf"
     },
+    contactForm: {
+        recipientEmail: "shobhitshah094@gmail.com",
+        subjectPrefix: "Portfolio enquiry"
+    },
     activeStatus: {
         title: "Currently working on",
         apps: ["everyspend", "dailysync"]
@@ -417,5 +421,32 @@ window.PORTFOLIO_CONFIG = {
             subtitle: "Reminder flow polish",
             icon: "store-assets/dailysync-icon.webp"
         }
-    }
+    },
+    socialLinks: [
+        {
+            key: "linkedin",
+            label: "LinkedIn",
+            href: "https://www.linkedin.com/in/shobhit-shah-9445a321b/"
+        },
+        {
+            key: "instagram",
+            label: "Instagram",
+            href: "https://www.instagram.com/shobhit.app"
+        },
+        {
+            key: "gmail",
+            label: "Gmail",
+            href: "mailto:shobhitshah094@gmail.com"
+        },
+        {
+            key: "x",
+            label: "X",
+            href: "https://x.com/Shobhit940"
+        },
+        {
+            key: "github",
+            label: "GitHub",
+            href: "https://github.com/ShobhitShah1/"
+        }
+    ]
 };

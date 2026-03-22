@@ -2068,7 +2068,7 @@
 
         .contact-copy {
             display: grid;
-            gap: 16px;
+            gap: 18px;
             align-content: start;
         }
 
@@ -2080,7 +2080,6 @@
             display: flex;
             flex-wrap: wrap;
             gap: 12px;
-            margin-top: 8px;
         }
 
         .contact-pill {
@@ -2103,79 +2102,49 @@
             gap: 14px;
         }
 
-        .contact-note {
+        .contact-map-card {
             display: grid;
             gap: 12px;
-            padding: 22px;
+            padding: 18px;
             border-radius: 28px;
-            background: var(--surface-note);
+            background: var(--surface-float);
             border: 1px solid var(--line);
-            box-shadow: var(--shadow-soft);
+            box-shadow: 0 14px 28px rgba(var(--shadow-rgb), 0.06);
         }
 
-        .contact-note h3 {
-            font-family: "Fraunces", serif;
-            font-size: clamp(1.8rem, 2.4vw, 2.5rem);
-            font-weight: 600;
-            line-height: 1.02;
-            letter-spacing: -0.03em;
-        }
-
-        .contact-note p {
-            color: var(--muted);
-        }
-
-        .contact-actions {
+        .contact-map-head {
             display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 14px;
-            min-width: 0;
+            gap: 6px;
         }
 
-        .contact-link.primary {
-            grid-column: span 2;
-            min-height: 146px;
-        }
-
-        .contact-link {
-            display: grid;
-            gap: 14px;
-            align-content: space-between;
-            min-height: 164px;
-            padding: 20px;
-            border-radius: 26px;
-            background: var(--surface-card);
-            border: 1px solid var(--line);
-            box-shadow: 0 14px 30px rgba(var(--shadow-rgb), 0.06);
-            transition: transform var(--transition), border-color var(--transition), background var(--transition), box-shadow var(--transition);
-        }
-
-        .contact-link-head {
-            display: grid;
-            gap: 8px;
-        }
-
-        .contact-link-label {
-            font-size: 0.74rem;
-            font-weight: 800;
-            letter-spacing: 0.16em;
-            text-transform: uppercase;
-            color: var(--accent);
-        }
-
-        .contact-link strong {
+        .contact-map-head strong {
             font-size: 1rem;
-            line-height: 1.28;
-            font-weight: 800;
+            line-height: 1.2;
+            color: var(--text-strong);
         }
 
-        .contact-link span {
+        .contact-map-head span {
             color: var(--muted);
-            font-size: 0.9rem;
-            font-weight: 600;
+            font-size: 0.92rem;
         }
 
-        .contact-link-action {
+        .contact-map-frame {
+            overflow: hidden;
+            border-radius: 22px;
+            border: 1px solid var(--line);
+            background: var(--surface-muted);
+            min-height: 250px;
+        }
+
+        .contact-map-frame iframe {
+            display: block;
+            width: 100%;
+            height: 100%;
+            min-height: 250px;
+            border: 0;
+        }
+
+        .contact-map-link {
             display: inline-flex;
             align-items: center;
             gap: 8px;
@@ -2184,10 +2153,194 @@
             color: var(--text);
         }
 
-        .contact-link:hover {
-            transform: translateY(-4px);
+        .contact-form-card {
+            display: grid;
+            gap: 18px;
+            padding: 24px;
+            border-radius: 30px;
+            background: var(--surface-float);
+            border: 1px solid var(--line);
+            box-shadow: 0 18px 36px rgba(var(--shadow-rgb), 0.08);
+        }
+
+        .contact-form-head {
+            display: grid;
+            gap: 8px;
+        }
+
+        .contact-form-head h3 {
+            font-family: "Fraunces", serif;
+            font-size: clamp(1.75rem, 2.8vw, 2.5rem);
+            font-weight: 600;
+            line-height: 1.02;
+            letter-spacing: -0.03em;
+            color: var(--text-strong);
+        }
+
+        .contact-form-head p {
+            color: var(--muted);
+        }
+
+        .contact-form {
+            display: grid;
+            gap: 14px;
+        }
+
+        .contact-form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 14px;
+        }
+
+        .contact-field {
+            display: grid;
+            gap: 8px;
+        }
+
+        .contact-field.full {
+            grid-column: 1 / -1;
+        }
+
+        .contact-field label {
+            font-size: 0.74rem;
+            font-weight: 800;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--accent);
+        }
+
+        .contact-input,
+        .contact-select,
+        .contact-textarea {
+            width: 100%;
+            border-radius: 18px;
+            border: 1px solid var(--line);
+            background: var(--surface-muted);
+            color: var(--text);
+            padding: 0 16px;
+            font: inherit;
+            transition: border-color var(--transition), box-shadow var(--transition), background var(--transition);
+        }
+
+        .contact-input,
+        .contact-select {
+            min-height: 54px;
+        }
+
+        .contact-textarea {
+            min-height: 148px;
+            padding-top: 15px;
+            padding-bottom: 15px;
+            resize: vertical;
+        }
+
+        .contact-input::placeholder,
+        .contact-textarea::placeholder {
+            color: color-mix(in srgb, var(--muted) 76%, white 24%);
+        }
+
+        .contact-input:focus,
+        .contact-select:focus,
+        .contact-textarea:focus {
+            outline: none;
+            border-color: var(--accent-line-strong);
+            box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent-soft) 72%, white 28%);
+            background: var(--surface-strong);
+        }
+
+        .contact-form-note {
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+
+        .contact-form-note a {
+            color: var(--text);
+            font-weight: 700;
+        }
+
+        .contact-form-note.is-success {
+            color: var(--accent);
+        }
+
+        .contact-form-note.is-error {
+            color: var(--text-strong);
+        }
+
+        .contact-form-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .contact-submit {
+            min-width: 188px;
+        }
+
+        .contact-submit[disabled] {
+            opacity: 0.7;
+            cursor: wait;
+            transform: none;
+        }
+
+        .contact-socials {
+            display: grid;
+            gap: 10px;
+            padding-top: 14px;
+            border-top: 1px solid var(--line);
+        }
+
+        .contact-honeypot {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        .footer-shell {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px 0 8px;
+        }
+
+        .social-strip {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            gap: 12px;
+        }
+
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: 1px solid var(--line);
+            background: var(--surface-soft);
+            color: var(--text);
+            box-shadow: 0 12px 24px rgba(var(--shadow-rgb), 0.06);
+            transition: transform var(--transition), border-color var(--transition), background var(--transition), box-shadow var(--transition);
+        }
+
+        .social-link svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+        }
+
+        .social-link:hover {
+            transform: translateY(-2px);
             border-color: var(--line-strong);
-            box-shadow: 0 18px 36px rgba(var(--shadow-rgb), 0.1);
+            background: var(--surface-soft);
+            box-shadow: 0 16px 28px rgba(var(--shadow-rgb), 0.1);
         }
 
         .contact-section {
@@ -2196,13 +2349,6 @@
 
         .site-footer {
             padding-bottom: 30px;
-        }
-
-        .footer-shell {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px 0 8px;
         }
 
         .footer-statement {
@@ -2294,7 +2440,7 @@
             .hero-facts,
             .launch-ribbon,
             .archive-grid,
-            .contact-actions {
+            .contact-form-grid {
                 grid-template-columns: 1fr;
             }
 
@@ -2321,10 +2467,6 @@
 
             .tag-row {
                 grid-template-columns: 1fr;
-            }
-
-            .contact-link.primary {
-                grid-column: auto;
             }
 
             .gallery-dialog {
@@ -2434,8 +2576,8 @@
                 padding: 22px;
             }
 
-            .contact-actions {
-                min-width: 0;
+            .contact-form-card {
+                padding: 18px;
             }
 
             .gallery-panel {
@@ -2492,6 +2634,14 @@
             .cv-action,
             .cv-actions .button {
                 width: 100%;
+            }
+
+            .contact-submit {
+                width: 100%;
+            }
+
+            .social-strip {
+                justify-content: center;
             }
         }
 
@@ -2577,7 +2727,7 @@
                         </div>
                         <div class="fact-card">
                             <strong>Cross-domain</strong>
-                            <span>Healthcare, finance, media, utility, gifting, and creator-focused products</span>
+                            <span>Healthcare, finance, gifting, and creator-focused products</span>
                         </div>
                         <div class="fact-card">
                             <strong>2022</strong>
@@ -3013,53 +3163,85 @@
             <div class="container contact-panel reveal">
                 <div class="contact-copy">
                     <p class="eyebrow">Contact</p>
-                    <h2>Need a calmer, cleaner mobile product experience?</h2>
+                    <h2>Let&apos;s build something clean, useful, and ready to ship.</h2>
                     <p>
-                        I work best on React Native products that need stronger UI judgment, cleaner execution, and a
-                        more refined feel across the actual shipped experience.
+                        Open to React Native roles, freelance builds, and focused product work where execution,
+                        interface quality, and release polish all matter.
                     </p>
                     <div class="contact-pills">
-                        <div class="contact-pill">Open to product roles</div>
+                        <div class="contact-pill">React Native product roles</div>
                         <div class="contact-pill">Freelance and contract work</div>
                         <div class="contact-pill">Surat, India</div>
+                    </div>
+                    <div class="contact-map-card">
+                        <div class="contact-map-head">
+                            <p class="mini-label">Location</p>
+                            <strong>Working from Surat, India</strong>
+                            <span>Available for remote work, freelance projects, and product-focused roles.</span>
+                        </div>
+                        <div class="contact-map-frame">
+                            <iframe
+                                title="Map showing Surat, India"
+                                loading="lazy"
+                                referrerpolicy="no-referrer-when-downgrade"
+                                src="https://www.openstreetmap.org/export/embed.html?bbox=72.7811%2C21.1402%2C72.8811%2C21.2002&amp;layer=mapnik&amp;marker=21.1702%2C72.8311">
+                            </iframe>
+                        </div>
                     </div>
                 </div>
 
                 <div class="contact-side">
-                    <div class="contact-note">
-                        <p class="mini-label">Best Fit</p>
-                        <h3>Products that need polish, structure, and cleaner interaction design.</h3>
-                        <p>
-                            From early builds to UI refresh work, I focus on interfaces that feel easier, lighter, and
-                            more considered once they are in users&apos; hands.
-                        </p>
-                    </div>
+                    <div class="contact-form-card">
+                        <div class="contact-form-head">
+                            <p class="mini-label">Start a conversation</p>
+                            <h3>Send a short project brief.</h3>
+                            <p>Fill this out and it will open your email app with a ready draft addressed to me.</p>
+                        </div>
 
-                    <div class="contact-actions">
-                        <a class="contact-link primary" href="mailto:shobhitshah094@gmail.com">
-                            <div class="contact-link-head">
-                                <p class="contact-link-label">Email</p>
-                                <strong>shobhitshah094@gmail.com</strong>
-                                <span>For hiring, freelance work, and product enquiries.</span>
+                        <form class="contact-form" id="contact-form" method="POST" action="https://formsubmit.co/shobhitshah094@gmail.com">
+                            <input class="contact-honeypot" type="text" name="_honey" tabindex="-1" autocomplete="off">
+                            <input type="hidden" name="_template" value="table">
+                            <input type="hidden" name="_subject" value="Portfolio enquiry">
+                            <div class="contact-form-grid">
+                                <div class="contact-field">
+                                    <label for="contact-name">Name</label>
+                                    <input class="contact-input" id="contact-name" name="name" type="text" placeholder="Your name" required>
+                                </div>
+                                <div class="contact-field">
+                                    <label for="contact-email">Email</label>
+                                    <input class="contact-input" id="contact-email" name="email" type="email" placeholder="you@company.com">
+                                </div>
+                                <div class="contact-field">
+                                    <label for="contact-type">Project type</label>
+                                    <select class="contact-select" id="contact-type" name="projectType">
+                                        <option value="">Select one</option>
+                                        <option value="Full-time role">Full-time role</option>
+                                        <option value="Freelance project">Freelance project</option>
+                                        <option value="Contract work">Contract work</option>
+                                        <option value="UI refinement">UI refinement</option>
+                                        <option value="Feature build">Feature build</option>
+                                    </select>
+                                </div>
+                                <div class="contact-field">
+                                    <label for="contact-timeline">Timeline</label>
+                                    <input class="contact-input" id="contact-timeline" name="timeline" type="text" placeholder="Ex. 2 weeks, ongoing, immediate">
+                                </div>
+                                <div class="contact-field full">
+                                    <label for="contact-message">Project brief</label>
+                                    <textarea class="contact-textarea" id="contact-message" name="message" placeholder="Tell me what you are building, what stage it is at, and what you need help with." required></textarea>
+                                </div>
                             </div>
-                            <div class="contact-link-action">Write now</div>
-                        </a>
-                        <a class="contact-link" href="https://github.com/ShobhitShah1/" target="_blank" rel="noreferrer">
-                            <div class="contact-link-head">
-                                <p class="contact-link-label">GitHub</p>
-                                <strong>github.com/ShobhitShah1</strong>
-                                <span>Browse shipped work, experiments, and implementation style.</span>
+
+                            <div class="contact-form-actions">
+                                <p class="contact-form-note" id="contact-form-note">Opens your email client with a prefilled message to <a href="mailto:shobhitshah094@gmail.com">shobhitshah094@gmail.com</a>.</p>
+                                <button class="button button-primary contact-submit" type="submit">Send enquiry</button>
                             </div>
-                            <div class="contact-link-action">View profile</div>
-                        </a>
-                        <a class="contact-link" href="https://www.linkedin.com/in/shobhit-shah-9445a321b/" target="_blank" rel="noreferrer">
-                            <div class="contact-link-head">
-                                <p class="contact-link-label">LinkedIn</p>
-                                <strong>linkedin.com/in/shobhit-shah-9445a321b</strong>
-                                <span>Best place for role discussions and professional context.</span>
-                            </div>
-                            <div class="contact-link-action">Connect there</div>
-                        </a>
+                        </form>
+
+                        <div class="contact-socials">
+                            <p class="mini-label">Elsewhere</p>
+                            <div class="social-strip" id="footer-socials" aria-label="Social links"></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -3172,6 +3354,10 @@
         const cvDownloadLink = document.getElementById("cv-download-link");
         const cvFallbackOpenLink = document.getElementById("cv-fallback-open-link");
         const cvFallbackDownloadLink = document.getElementById("cv-fallback-download-link");
+        const contactForm = document.getElementById("contact-form");
+        const contactFormNote = document.getElementById("contact-form-note");
+        const contactSubmit = document.querySelector(".contact-submit");
+        const footerSocials = document.getElementById("footer-socials");
         const galleryDialog = document.getElementById("gallery-dialog");
         const galleryImage = document.getElementById("gallery-image");
         const galleryCounter = document.getElementById("gallery-counter");
@@ -3194,6 +3380,14 @@
         let activePreviewIndex = 0;
         let previewTrigger = null;
         let cvTrigger = null;
+        const socialIconMap = {
+            linkedin: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.94 8.5H3.56V20h3.38zM5.25 3A2.07 2.07 0 0 0 3.2 5.07 2.07 2.07 0 0 0 5.25 7.14 2.08 2.08 0 0 0 7.33 5.07 2.08 2.08 0 0 0 5.25 3m6.57 5.5H8.55V20h3.27v-5.7c0-1.5.28-2.95 2.14-2.95 1.83 0 1.85 1.71 1.85 3.05V20h3.28v-6.27c0-3.08-.66-5.45-4.26-5.45-1.73 0-2.89.95-3.36 1.85h-.05z"/></svg>',
+            instagram: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.75 2h8.5A5.75 5.75 0 0 1 22 7.75v8.5A5.75 5.75 0 0 1 16.25 22h-8.5A5.75 5.75 0 0 1 2 16.25v-8.5A5.75 5.75 0 0 1 7.75 2m0 1.8A3.95 3.95 0 0 0 3.8 7.75v8.5A3.95 3.95 0 0 0 7.75 20.2h8.5a3.95 3.95 0 0 0 3.95-3.95v-8.5A3.95 3.95 0 0 0 16.25 3.8zm8.95 1.35a1.15 1.15 0 1 1-1.15 1.15 1.15 1.15 0 0 1 1.15-1.15M12 6.86A5.14 5.14 0 1 1 6.86 12 5.14 5.14 0 0 1 12 6.86m0 1.8A3.34 3.34 0 1 0 15.34 12 3.34 3.34 0 0 0 12 8.66"/></svg>',
+            gmail: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.4 6.6 12 13.4l9.6-6.8v10.8A2.6 2.6 0 0 1 19 20H5a2.6 2.6 0 0 1-2.6-2.6zm0-2h19.2A2.4 2.4 0 0 1 24 7v10.4A4.6 4.6 0 0 1 19.4 22H4.6A4.6 4.6 0 0 1 0 17.4V7a2.4 2.4 0 0 1 2.4-2.4M12 11 22 4H2z"/></svg>',
+            x: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.9 2H22l-6.8 7.78L23 22h-6.1l-4.78-6.24L6.66 22H3.54l7.28-8.32L1 2h6.26l4.32 5.7zm-1.07 18h1.72L6.32 3.9H4.47z"/></svg>',
+            github: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .5A12 12 0 0 0 8.2 23.9c.6.1.82-.26.82-.58v-2.03c-3.34.72-4.04-1.42-4.04-1.42a3.18 3.18 0 0 0-1.34-1.76c-1.1-.75.08-.73.08-.73a2.52 2.52 0 0 1 1.84 1.24 2.56 2.56 0 0 0 3.5 1 2.56 2.56 0 0 1 .76-1.6c-2.67-.3-5.48-1.34-5.48-5.94a4.63 4.63 0 0 1 1.23-3.22 4.3 4.3 0 0 1 .12-3.18s1-.33 3.3 1.23a11.37 11.37 0 0 1 6 0c2.3-1.56 3.3-1.23 3.3-1.23a4.3 4.3 0 0 1 .12 3.18 4.62 4.62 0 0 1 1.23 3.22c0 4.61-2.82 5.64-5.5 5.93a2.87 2.87 0 0 1 .82 2.22v3.28c0 .32.21.69.83.57A12 12 0 0 0 12 .5"/></svg>'
+        };
+        const defaultContactFormNote = 'Messages are sent to <a href="mailto:shobhitshah094@gmail.com">shobhitshah094@gmail.com</a>.';
 
         const applyCvConfig = () => {
             const cvConfig = portfolioConfig.cv || {};
@@ -3253,6 +3447,109 @@
 
         applyCvConfig();
         renderActiveStatus();
+
+        const contactFormConfig = portfolioConfig.contactForm || {};
+        const contactRecipient = contactFormConfig.recipientEmail || "shobhitshah094@gmail.com";
+        const contactSubjectPrefix = contactFormConfig.subjectPrefix || "Portfolio enquiry";
+        const contactFormAction = `https://formsubmit.co/${contactRecipient}`;
+        const contactFormAjaxAction = `https://formsubmit.co/ajax/${contactRecipient}`;
+
+        const renderFooterSocials = () => {
+            if (!footerSocials) {
+                return;
+            }
+
+            const socials = Array.isArray(portfolioConfig.socialLinks) ? portfolioConfig.socialLinks : [];
+            footerSocials.innerHTML = "";
+
+            socials.forEach((social) => {
+                const link = document.createElement("a");
+                link.className = "social-link";
+                link.href = social.href || "#";
+                link.setAttribute("aria-label", social.label || social.key || "Social link");
+
+                if (link.href.startsWith("http")) {
+                    link.target = "_blank";
+                    link.rel = "noreferrer";
+                }
+
+                link.innerHTML = socialIconMap[social.key] || '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/></svg>';
+                footerSocials.appendChild(link);
+            });
+        };
+
+        renderFooterSocials();
+
+        if (contactForm && contactFormNote) {
+            contactForm.action = contactFormAction;
+            const subjectInput = contactForm.querySelector('input[name="_subject"]');
+            if (subjectInput) {
+                subjectInput.value = contactSubjectPrefix;
+            }
+            contactFormNote.innerHTML = defaultContactFormNote.replace("shobhitshah094@gmail.com", contactRecipient);
+
+            contactForm.addEventListener("submit", async (event) => {
+                event.preventDefault();
+
+                if (!contactForm.reportValidity()) {
+                    return;
+                }
+
+                const formData = new FormData(contactForm);
+                const name = String(formData.get("name") || "").trim();
+                const email = String(formData.get("email") || "").trim();
+                const projectType = String(formData.get("projectType") || "").trim();
+                const timeline = String(formData.get("timeline") || "").trim();
+                const message = String(formData.get("message") || "").trim();
+                const payload = new FormData(contactForm);
+                const subjectParts = [contactSubjectPrefix];
+
+                if (projectType) {
+                    subjectParts.push(projectType);
+                }
+
+                subjectParts.push(name);
+                payload.set("_subject", subjectParts.join(" | "));
+
+                if (typeof window !== "undefined" && window.location?.href?.startsWith("http")) {
+                    payload.set("_url", window.location.href);
+                }
+
+                contactFormNote.classList.remove("is-success", "is-error");
+                contactFormNote.textContent = "Sending enquiry...";
+
+                if (contactSubmit) {
+                    contactSubmit.disabled = true;
+                }
+
+                try {
+                    const response = await fetch(contactFormAjaxAction, {
+                        method: "POST",
+                        body: payload,
+                        headers: {
+                            Accept: "application/json"
+                        }
+                    });
+
+                    const result = await response.json();
+
+                    if (!response.ok || result.success === "false" || result.success === false) {
+                        throw new Error(result.message || "Unable to send message.");
+                    }
+
+                    contactForm.reset();
+                    contactFormNote.classList.add("is-success");
+                    contactFormNote.textContent = "Message sent. If this is the first live submission, FormSubmit may send one activation email before future messages are forwarded.";
+                } catch (error) {
+                    contactFormNote.classList.add("is-error");
+                    contactFormNote.innerHTML = `Could not send the form right now. You can still email <a href="mailto:${contactRecipient}">${contactRecipient}</a> directly.`;
+                } finally {
+                    if (contactSubmit) {
+                        contactSubmit.disabled = false;
+                    }
+                }
+            });
+        }
 
         const renderPreviewShot = (index, options = {}) => {
             if (!activePreview || activePreview.shots.length === 0) {
