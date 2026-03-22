@@ -410,6 +410,31 @@ window.PORTFOLIO_CONFIG = {
         title: "Currently working on",
         apps: ["everyspend", "dailysync"]
     },
+    spotifyNowPlaying: {
+        // Spotify is paused for now.
+        // When you want it back later:
+        // 1. set enabled: true
+        // 2. add your Spotify env vars on the server
+        // 3. keep endpointUrl pointed at the server route below
+        enabled: false,
+        // Default server route kept here for later:
+        endpointUrl: "/api/spotify-status",
+        rotateMs: 10000,
+        pollMs: 45000,
+        openUrl: "https://open.spotify.com/",
+        showWhenPaused: false,
+        placeholderTitle: "Spotify",
+        placeholderSubtitle: "Live song will appear here",
+        // Quick UI test:
+        // set enabled: true and temporarily use:
+        // previewData: { isPlaying: true, title: "Track name", artist: "Artist name", albumArt: "https://...", songUrl: "https://open.spotify.com/track/..." }
+        // Example response shape:
+        // { isPlaying: true, title: "Track", artist: "Artist", albumArt: "https://...", songUrl: "https://open.spotify.com/track/..." }
+        previewData: null,
+        // Optional fixed playlist fallback when nothing is playing yet:
+        // playlistData: { title: "Your playlist", artist: "Playlist", albumArt: "https://...", songUrl: "https://open.spotify.com/playlist/..." }
+        playlistData: null
+    },
     heroShowcase: {
         // Use "current" to keep one hero mix, or "random" to rotate app visuals on each refresh.
         mode: "random",
