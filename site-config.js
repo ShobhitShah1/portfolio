@@ -410,6 +410,64 @@ window.PORTFOLIO_CONFIG = {
         title: "Currently working on",
         apps: ["everyspend", "dailysync"]
     },
+    heroShowcase: {
+        // Use "current" to keep one hero mix, or "random" to rotate app visuals on each refresh.
+        mode: "random",
+        posterPattern: [0, 1, 0],
+        current: {
+            apps: ["dailysync", "everyspend"]
+        },
+        apps: {
+            dailysync: {
+                name: "DailySync",
+                subtitle: "Reminder scheduler",
+                icon: "store-assets/dailysync-icon.webp",
+                heroShots: ["store-assets/dailysync-shot-1.webp", "store-assets/dailysync-shot-2.webp"],
+                heroShot: "store-assets/dailysync-shot-1.webp",
+                href: "https://play.google.com/store/apps/details?id=com.taskwave.dailysync"
+            },
+            everyspend: {
+                name: "EverySpend",
+                subtitle: "Expense tracker",
+                icon: "store-assets/holdmint-icon.webp",
+                heroShots: ["store-assets/holdmint-shot-1.webp", "store-assets/holdmint-shot-2.webp"],
+                heroShot: "store-assets/holdmint-shot-1.webp",
+                href: "https://play.google.com/store/apps/details?id=com.holdmint"
+            },
+            gigglam: {
+                name: "Gigglam",
+                subtitle: "Live creator editor",
+                icon: "store-assets/gigglam-icon.webp",
+                heroShots: ["store-assets/gigglam-shot-1.webp", "store-assets/gigglam-shot-2.webp"],
+                heroShot: "store-assets/gigglam-shot-1.webp",
+                href: "https://play.google.com/store/apps/details?id=com.gigglam"
+            },
+            photomontage: {
+                name: "Photomontage",
+                subtitle: "Montage editor",
+                icon: "store-assets/photomontage-icon.webp",
+                heroShots: ["store-assets/photomontage-shot-1.webp", "store-assets/photomontage-shot-2.webp"],
+                heroShot: "store-assets/photomontage-shot-1.webp",
+                href: "https://play.google.com/store/apps/details?id=com.photomontage.app"
+            },
+            vinea: {
+                name: "Vinea",
+                subtitle: "Healthcare platform",
+                icon: "store-assets/vinea-icon.webp",
+                heroShots: ["store-assets/vinea-shot-1.webp", "store-assets/vinea-shot-2.webp"],
+                heroShot: "store-assets/vinea-shot-1.webp",
+                href: "https://play.google.com/store/apps/details?id=com.vinea"
+            },
+            championspirit: {
+                name: "Champion Spirit",
+                subtitle: "Fitness platform",
+                icon: "store-assets/championspirit-icon.webp",
+                heroShots: ["store-assets/championspirit-shot-1.webp", "store-assets/championspirit-shot-2.webp"],
+                heroShot: "store-assets/championspirit-shot-1.webp",
+                href: "https://play.google.com/store/apps/details?id=com.championspirit.app"
+            }
+        }
+    },
     activeApps: {
         everyspend: {
             name: "EverySpend",

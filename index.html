@@ -181,6 +181,7 @@
             scrollbar-gutter: stable both-edges;
             scrollbar-width: thin;
             scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+            overflow-x: hidden;
         }
 
         body {
@@ -298,6 +299,14 @@
             background: var(--surface-float);
             backdrop-filter: blur(16px);
             box-shadow: 0 16px 34px rgba(var(--shadow-rgb), 0.07);
+        }
+
+        .nav-shell > *,
+        .hero-layout > *,
+        .section-head > *,
+        .profile-grid > *,
+        .contact-panel > * {
+            min-width: 0;
         }
 
         .brand {
@@ -488,6 +497,7 @@
 
         .page {
             padding-bottom: 44px;
+            overflow-x: hidden;
         }
 
         section {
@@ -520,6 +530,7 @@
 
         .hero-copy {
             padding: 14px 0;
+            min-width: 0;
         }
 
         .hero-copy h1,
@@ -745,11 +756,14 @@
         }
 
         .floating-poster {
+            display: block;
             padding: 10px;
             border-radius: 28px;
             background: var(--surface-float);
             border: 1px solid var(--line);
             box-shadow: 0 24px 55px rgba(var(--shadow-rgb), 0.14);
+            color: inherit;
+            text-decoration: none;
         }
 
         .floating-poster img {
@@ -757,6 +771,54 @@
             height: 100%;
             object-fit: cover;
             border-radius: 20px;
+            transition: transform var(--transition);
+        }
+
+        .hero-poster-meta {
+            position: absolute;
+            left: 18px;
+            right: 18px;
+            bottom: 18px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 12px;
+            border-radius: 20px;
+            background: linear-gradient(180deg, rgba(16, 24, 19, 0.18), rgba(16, 24, 19, 0.34));
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            backdrop-filter: blur(14px);
+            box-shadow: 0 12px 28px rgba(var(--shadow-rgb), 0.14);
+            pointer-events: none;
+        }
+
+        .hero-poster-icon {
+            width: 40px;
+            height: 40px;
+            flex: 0 0 40px;
+            border-radius: 14px;
+            object-fit: cover;
+            box-shadow: 0 10px 24px rgba(var(--shadow-deep-rgb), 0.24);
+        }
+
+        .hero-poster-copy {
+            display: flex;
+            flex-direction: column;
+            gap: 1px;
+            min-width: 0;
+        }
+
+        .hero-poster-copy strong {
+            font-size: 0.92rem;
+            line-height: 1.15;
+            color: var(--text-inverse);
+        }
+
+        .hero-poster-copy span {
+            font-size: 0.76rem;
+            color: rgba(255, 255, 255, 0.82);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .poster-main {
@@ -819,6 +881,24 @@
             border: 1px solid var(--line);
             box-shadow: var(--shadow-soft);
             backdrop-filter: blur(14px);
+            color: inherit;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .floating-poster,
+        .floating-chip {
+            cursor: pointer;
+        }
+
+        .floating-poster:focus-visible,
+        .floating-chip:focus-visible {
+            outline: 3px solid var(--focus-ring);
+            outline-offset: 4px;
+        }
+
+        .floating-poster:hover img {
+            transform: scale(1.015);
         }
 
         .floating-chip img,
@@ -1790,6 +1870,23 @@
             gap: 12px;
         }
 
+        .archive-copy {
+            min-width: 0;
+        }
+
+        .project-card,
+        .archive-card,
+        .profile-panel,
+        .experience-panel,
+        .contact-panel,
+        .contact-copy,
+        .contact-side,
+        .contact-form-card,
+        .contact-map-card,
+        .hero-stage {
+            min-width: 0;
+        }
+
         .archive-copy h3 {
             font-size: 1.1rem;
             line-height: 1.2;
@@ -2411,35 +2508,205 @@
 
         @media (max-width: 900px) {
             .site-header {
-                top: 10px;
+                position: static;
+                top: auto;
+                padding-top: 12px;
+            }
+
+            section {
+                scroll-margin-top: 28px;
             }
 
             .nav-shell {
-                grid-template-columns: 1fr;
-                gap: 14px;
-                border-radius: 28px;
+                grid-template-columns: minmax(0, 1fr) auto;
+                grid-template-areas:
+                    "brand status"
+                    "nav nav";
+                gap: 12px;
+                padding: 12px 14px;
+                border-radius: 24px;
+                box-shadow: 0 12px 28px rgba(var(--shadow-rgb), 0.06);
             }
 
             .brand {
-                justify-content: center;
+                grid-area: brand;
+                justify-content: flex-start;
             }
 
             .nav-links {
-                justify-self: center;
+                grid-area: nav;
+                justify-self: stretch;
                 width: 100%;
-                justify-content: center;
-                flex-wrap: wrap;
-                gap: 16px;
+                justify-content: flex-start;
+                flex-wrap: nowrap;
+                gap: 14px;
+                overflow-x: auto;
+                padding: 2px 0 4px;
+                scrollbar-width: none;
+                -ms-overflow-style: none;
+            }
+
+            .nav-links::-webkit-scrollbar {
+                display: none;
+            }
+
+            .nav-links a {
+                flex: 0 0 auto;
             }
 
             .live-status {
-                justify-self: center;
+                grid-area: status;
+                justify-self: end;
+                width: auto;
                 max-width: none;
+                min-height: 42px;
+                padding: 7px 10px 7px 11px;
+                gap: 8px;
             }
 
-            .hero-facts,
-            .launch-ribbon,
-            .archive-grid,
+            .live-status-kicker {
+                gap: 8px;
+            }
+
+            .live-status-copy strong {
+                font-size: 0.78rem;
+            }
+
+            .live-status-apps {
+                margin-left: 0;
+            }
+
+            .live-app-icon {
+                width: 28px;
+                height: 28px;
+                flex-basis: 28px;
+                border-radius: 10px;
+            }
+
+            .hero {
+                padding-top: 28px;
+                padding-bottom: 80px;
+            }
+
+            .hero-layout {
+                gap: 22px;
+            }
+
+            .hero-copy {
+                padding: 0;
+            }
+
+            .hero-copy h1 {
+                max-width: none;
+                margin: 14px 0 16px;
+                font-size: clamp(2.95rem, 9.4vw, 4.8rem);
+            }
+
+            .hero-copy p {
+                font-size: 0.98rem;
+            }
+
+            .hero-actions {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 12px;
+                margin: 24px 0;
+            }
+
+            .button.button-secondary {
+                grid-column: 1 / -1;
+            }
+
+            .hero-facts {
+                display: grid;
+                grid-auto-flow: column;
+                grid-auto-columns: minmax(230px, 72vw);
+                gap: 12px;
+                overflow-x: auto;
+                padding: 2px 2px 8px;
+                scroll-snap-type: x proximity;
+                scrollbar-width: none;
+                -ms-overflow-style: none;
+            }
+
+            .hero-facts::-webkit-scrollbar {
+                display: none;
+            }
+
+            .fact-card {
+                min-height: 100%;
+                padding: 16px 18px;
+                scroll-snap-align: start;
+            }
+
+            .hero-stage {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 14px;
+                min-height: auto;
+                padding: 18px;
+                border-radius: 32px;
+            }
+
+            .hero-stage::before,
+            .hero-stage::after {
+                display: none;
+            }
+
+            .floating-poster,
+            .floating-note,
+            .floating-chip {
+                position: relative;
+                inset: auto;
+                left: auto;
+                right: auto;
+                top: auto;
+                bottom: auto;
+                width: auto;
+                transform: none;
+                animation: none;
+            }
+
+            .poster-main,
+            .poster-secondary,
+            .poster-tertiary {
+                width: auto;
+                aspect-ratio: 0.62;
+            }
+
+            .floating-note {
+                grid-column: 1 / -1;
+                width: auto;
+                padding: 16px;
+            }
+
+            .floating-chip {
+                padding: 10px 12px;
+            }
+
+            .hero-poster-meta {
+                left: 12px;
+                right: 12px;
+                bottom: 12px;
+                padding: 8px 10px;
+                border-radius: 18px;
+            }
+
+            .hero-poster-icon {
+                width: 34px;
+                height: 34px;
+                flex-basis: 34px;
+                border-radius: 12px;
+            }
+
+            .hero-poster-copy strong {
+                font-size: 0.84rem;
+            }
+
+            .hero-poster-copy span {
+                font-size: 0.7rem;
+            }
+
             .contact-form-grid {
                 grid-template-columns: 1fr;
             }
@@ -2512,7 +2779,7 @@
             }
 
             .hero-copy h1 {
-                font-size: clamp(3rem, 14vw, 4.6rem);
+                font-size: clamp(2.75rem, 12vw, 4rem);
             }
 
             .hero-actions,
@@ -2521,52 +2788,18 @@
                 align-items: center;
             }
 
+            .hero-actions {
+                grid-template-columns: 1fr;
+                align-items: stretch;
+            }
+
             .button,
             .header-cta {
                 width: 100%;
             }
 
             .hero-stage {
-                min-height: 560px;
-            }
-
-            .shot-stage {
-                min-height: 320px;
-                padding: 20px;
-            }
-
-            .poster-main {
-                width: 220px;
-                left: 18px;
-                top: 74px;
-            }
-
-            .poster-secondary {
-                width: 188px;
-                right: 14px;
-                top: 30px;
-            }
-
-            .poster-tertiary {
-                width: 182px;
-                right: 28px;
-                bottom: 36px;
-            }
-
-            .floating-note {
-                left: 16px;
-                bottom: 22px;
-                width: 215px;
-            }
-
-            .chip-one {
-                left: 176px;
-                top: 96px;
-            }
-
-            .chip-two {
-                right: 16px;
-                top: 282px;
+                min-height: auto;
             }
 
             .project-card,
@@ -2578,6 +2811,11 @@
 
             .contact-form-card {
                 padding: 18px;
+            }
+
+            .shot-stage {
+                min-height: 320px;
+                padding: 20px;
             }
 
             .gallery-panel {
@@ -2642,6 +2880,674 @@
 
             .social-strip {
                 justify-content: center;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .site-header,
+            .hero,
+            .section,
+            .container {
+                overflow-x: clip;
+            }
+
+            :root {
+                --mobile-lane-edge: 8px;
+            }
+
+            .hero-facts,
+            .launch-ribbon,
+            .project-grid,
+            .archive-grid,
+            .about-highlights,
+            .focus-grid,
+            .experience-rail,
+            .experience-list,
+            .skill-cloud,
+            .contact-pills,
+            .social-strip {
+                display: flex;
+                align-items: stretch;
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                overflow-y: hidden;
+                overscroll-behavior-x: contain;
+                -webkit-overflow-scrolling: touch;
+                scroll-snap-type: x mandatory;
+                scrollbar-width: none;
+                -ms-overflow-style: none;
+                scroll-padding-inline: var(--mobile-lane-edge);
+                padding: 2px var(--mobile-lane-edge) 10px;
+                width: 100%;
+                max-width: 100%;
+            }
+
+            .hero-facts::-webkit-scrollbar,
+            .launch-ribbon::-webkit-scrollbar,
+            .project-grid::-webkit-scrollbar,
+            .archive-grid::-webkit-scrollbar,
+            .about-highlights::-webkit-scrollbar,
+            .focus-grid::-webkit-scrollbar,
+            .experience-rail::-webkit-scrollbar,
+            .experience-list::-webkit-scrollbar,
+            .skill-cloud::-webkit-scrollbar,
+            .contact-pills::-webkit-scrollbar,
+            .social-strip::-webkit-scrollbar {
+                display: none;
+            }
+
+            .hero-facts {
+                gap: 12px;
+            }
+
+            .hero-facts > .fact-card {
+                flex: 0 0 min(290px, calc(100% - (var(--mobile-lane-edge) * 2)));
+                min-width: 0;
+                scroll-snap-align: start;
+                scroll-snap-stop: always;
+            }
+
+            .launch-ribbon {
+                gap: 14px;
+            }
+
+            .launch-ribbon > .ribbon-card {
+                flex: 0 0 min(280px, calc(100% - (var(--mobile-lane-edge) * 2)));
+                min-width: 0;
+                scroll-snap-align: start;
+                scroll-snap-stop: always;
+            }
+
+            .project-grid {
+                column-count: initial;
+                column-gap: 0;
+                gap: 16px;
+            }
+
+            .project-grid > .project-card {
+                flex: 0 0 min(390px, calc(100% - (var(--mobile-lane-edge) * 2)));
+                width: auto;
+                min-width: 0;
+                margin-bottom: 0;
+                display: grid;
+                scroll-snap-align: start;
+                scroll-snap-stop: always;
+            }
+
+            .archive-grid {
+                gap: 16px;
+            }
+
+            .archive-grid > .archive-card {
+                flex: 0 0 min(340px, calc(100% - (var(--mobile-lane-edge) * 2)));
+                width: auto;
+                min-width: 0;
+                margin-bottom: 0;
+                scroll-snap-align: start;
+                scroll-snap-stop: always;
+            }
+
+            .about-highlights,
+            .focus-grid,
+            .experience-rail,
+            .experience-list {
+                gap: 14px;
+            }
+
+            .about-highlights > .about-note,
+            .focus-grid > .focus-card {
+                flex: 0 0 min(320px, calc(100% - (var(--mobile-lane-edge) * 2)));
+                min-width: 0;
+                min-height: 0;
+                scroll-snap-align: start;
+                scroll-snap-stop: always;
+            }
+
+            .experience-rail {
+                padding-left: 2px;
+            }
+
+            .experience-rail::before,
+            .experience-step::before {
+                display: none;
+            }
+
+            .experience-rail > .experience-step {
+                flex: 0 0 min(320px, calc(100% - (var(--mobile-lane-edge) * 2)));
+                min-width: 0;
+                padding: 16px;
+                border-radius: 24px;
+                background: var(--surface);
+                border: 1px solid var(--line);
+                box-shadow: 0 12px 24px rgba(var(--shadow-rgb), 0.06);
+                scroll-snap-align: start;
+                scroll-snap-stop: always;
+            }
+
+            .experience-list > li {
+                flex: 0 0 min(340px, calc(100% - (var(--mobile-lane-edge) * 2)));
+                min-width: 0;
+                padding: 16px 16px 16px 32px;
+                border-radius: 22px;
+                background: var(--surface-soft);
+                border: 1px solid var(--line);
+                scroll-snap-align: start;
+                scroll-snap-stop: always;
+            }
+
+            .experience-list li::before {
+                left: 14px;
+                top: 18px;
+            }
+
+            .skill-cloud,
+            .contact-pills,
+            .social-strip {
+                gap: 10px;
+                scroll-snap-type: x proximity;
+            }
+
+            .skill-cloud > .skill-pill,
+            .contact-pills > .contact-pill,
+            .social-strip > * {
+                flex: 0 0 auto;
+                scroll-snap-align: start;
+            }
+        }
+
+        @media (max-width: 640px) {
+            body::before {
+                display: none;
+            }
+
+            :root {
+                --mobile-lane-edge: 6px;
+            }
+
+            .site-header {
+                padding-top: 12px;
+            }
+
+            .nav-shell {
+                padding: 12px;
+                gap: 10px;
+                border-radius: 20px;
+            }
+
+            .brand {
+                justify-content: flex-start;
+            }
+
+            .brand-copy strong {
+                font-size: 0.9rem;
+            }
+
+            .brand-copy span,
+            .button-cv-copy span {
+                white-space: normal;
+            }
+
+            .brand-copy span {
+                display: none;
+            }
+
+            .nav-links {
+                display: grid;
+                grid-template-columns: repeat(4, minmax(0, 1fr));
+                justify-content: stretch;
+                gap: 6px;
+                padding-bottom: 2px;
+                overflow: hidden;
+            }
+
+            .nav-links a {
+                min-width: 0;
+                text-align: center;
+                font-size: 0.8rem;
+                padding: 6px 4px;
+            }
+
+            .live-status {
+                width: auto;
+                justify-content: flex-end;
+                padding: 6px 8px 6px 10px;
+                gap: 8px;
+            }
+
+            .live-status-copy {
+                display: none;
+            }
+
+            .live-status-copy strong {
+                white-space: nowrap;
+                font-size: 0.72rem;
+            }
+
+            .live-status-apps {
+                margin-left: 0;
+            }
+
+            .hero-layout {
+                gap: 22px;
+            }
+
+            .hero-copy {
+                padding: 6px 0 0;
+            }
+
+            .hero-copy p {
+                font-size: 0.96rem;
+            }
+
+            .hero-actions {
+                grid-template-columns: 1fr;
+                margin: 20px 0 22px;
+                gap: 10px;
+            }
+
+            .button-cv {
+                min-height: 52px;
+                padding: 8px 16px 8px 10px;
+                border-radius: 18px;
+            }
+
+            .button-cv-mark {
+                width: 34px;
+                height: 34px;
+                flex-basis: 34px;
+                border-radius: 12px;
+            }
+
+            .button-cv-copy {
+                gap: 0;
+            }
+
+            .button-cv-copy span {
+                display: none;
+            }
+
+            .floating-chip img,
+            .ribbon-card img,
+            .app-badge img,
+            .archive-top img {
+                width: 42px;
+                height: 42px;
+                border-radius: 14px;
+            }
+
+            .chip-copy strong {
+                font-size: 0.88rem;
+            }
+
+            .chip-copy span {
+                font-size: 0.76rem;
+            }
+
+            .section {
+                padding-bottom: 78px;
+            }
+
+            .section-head {
+                gap: 12px;
+                margin-bottom: 22px;
+            }
+
+            .section-head h2,
+            .profile-copy h2,
+            .contact-copy h2 {
+                font-size: clamp(2rem, 9vw, 2.7rem);
+                line-height: 0.98;
+            }
+
+            .project-card,
+            .profile-panel,
+            .experience-panel,
+            .contact-panel {
+                padding: 18px;
+                border-radius: 26px;
+            }
+
+            .project-card {
+                gap: 14px;
+            }
+
+            .project-top {
+                align-items: flex-start;
+                gap: 12px;
+            }
+
+            .project-type {
+                width: 100%;
+            }
+
+            .project-card h3 {
+                font-size: clamp(1.7rem, 8vw, 2.45rem);
+            }
+
+            .project-card p {
+                font-size: 0.94rem;
+            }
+
+            .project-grid {
+                gap: 14px;
+            }
+
+            .archive-grid {
+                gap: 14px;
+            }
+
+            .archive-card {
+                grid-template-rows: auto auto auto;
+                align-content: start;
+                gap: 14px;
+            }
+
+            .archive-visual {
+                aspect-ratio: 1.46;
+            }
+
+            .archive-top {
+                display: grid;
+                grid-template-columns: 42px minmax(0, 1fr);
+                align-items: center;
+                gap: 10px;
+            }
+
+            .archive-copy h3 {
+                font-size: 1.08rem;
+            }
+
+            .archive-copy p {
+                font-size: 0.92rem;
+                display: -webkit-box;
+                -webkit-box-orient: vertical;
+                -webkit-line-clamp: 3;
+                overflow: hidden;
+            }
+
+            .archive-card .inline-link {
+                margin-top: auto;
+            }
+
+            .shot-thumb {
+                flex-basis: 78px;
+                border-radius: 18px;
+            }
+
+            .shot-stage {
+                min-height: 280px;
+                padding: 16px;
+            }
+
+            .shot-stage img {
+                width: min(100%, 240px);
+            }
+
+            .shot-stage-note {
+                right: 12px;
+                bottom: 12px;
+                padding: 9px 12px;
+                font-size: 0.76rem;
+            }
+
+            .archive-card {
+                padding: 16px;
+            }
+
+            .profile-copy,
+            .contact-copy {
+                gap: 12px;
+            }
+
+            .profile-stack-block {
+                margin-top: 20px;
+                gap: 12px;
+            }
+
+            .experience-company img {
+                height: 28px;
+                max-width: 110px;
+            }
+
+            .contact-panel {
+                gap: 16px;
+            }
+
+            .contact-side {
+                order: -1;
+            }
+
+            .contact-copy {
+                order: 1;
+            }
+
+            .contact-map-card,
+            .contact-form-card {
+                padding: 16px;
+                border-radius: 24px;
+            }
+
+            .contact-map-frame,
+            .contact-map-frame iframe {
+                min-height: 184px;
+            }
+
+            .contact-form-head h3 {
+                font-size: clamp(1.55rem, 7vw, 2rem);
+            }
+
+            .contact-form-actions {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .contact-form-note {
+                text-align: left;
+            }
+
+            .social-strip {
+                justify-content: flex-start;
+            }
+        }
+
+        @media (max-width: 480px) {
+            :root {
+                --mobile-lane-edge: 5px;
+            }
+
+            .container {
+                width: min(var(--max-width), calc(100% - 14px));
+            }
+
+            .hero {
+                padding-top: 18px;
+                padding-bottom: 64px;
+            }
+
+            .nav-shell {
+                padding: 10px;
+            }
+
+            .brand-mark {
+                width: 38px;
+                height: 38px;
+            }
+
+            .brand-copy strong {
+                font-size: 0.86rem;
+            }
+
+            .live-status {
+                min-height: 38px;
+                padding: 6px 7px;
+                border-radius: 16px;
+                gap: 6px;
+            }
+
+            .live-status-kicker {
+                gap: 6px;
+            }
+
+            .live-status-copy strong {
+                display: none;
+            }
+
+            .live-status-dot {
+                width: 7px;
+                height: 7px;
+                box-shadow: 0 0 0 4px var(--live-ring);
+            }
+
+            .live-app + .live-app {
+                margin-left: -6px;
+            }
+
+            .live-app-icon {
+                width: 26px;
+                height: 26px;
+                flex-basis: 26px;
+                border-radius: 9px;
+            }
+
+            .hero-copy h1 {
+                font-size: clamp(2.3rem, 12.5vw, 3.2rem);
+                max-width: none;
+            }
+
+            .eyebrow,
+            .mini-label,
+            .project-type,
+            .card-label,
+            .stack-label {
+                letter-spacing: 0.12em;
+            }
+
+            .hero-stage {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 10px;
+                padding: 12px;
+            }
+
+            .poster-tertiary,
+            .floating-chip {
+                display: none;
+            }
+
+            .floating-note {
+                padding: 14px;
+            }
+
+            .hero-poster-meta {
+                left: 10px;
+                right: 10px;
+                bottom: 10px;
+                padding: 8px 9px;
+                gap: 8px;
+            }
+
+            .hero-poster-icon {
+                width: 32px;
+                height: 32px;
+                flex-basis: 32px;
+            }
+
+            .section-head h2,
+            .profile-copy h2,
+            .contact-copy h2 {
+                font-size: clamp(1.85rem, 10vw, 2.4rem);
+            }
+
+            .section-head p,
+            .profile-copy p,
+            .contact-copy p,
+            .hero-copy p,
+            .contact-pill,
+            .skill-pill {
+                font-size: 0.84rem;
+            }
+
+            .hero-facts,
+            .launch-ribbon,
+            .project-grid,
+            .archive-grid,
+            .about-highlights,
+            .focus-grid,
+            .experience-rail,
+            .experience-list,
+            .skill-cloud,
+            .contact-pills,
+            .social-strip {
+                gap: 12px;
+                padding-bottom: 6px;
+            }
+
+            .hero-facts > .fact-card {
+                padding: 14px 16px;
+            }
+
+            .nav-links a {
+                font-size: 0.76rem;
+                padding: 5px 2px;
+            }
+
+            .archive-top {
+                grid-template-columns: 40px minmax(0, 1fr);
+                gap: 9px;
+            }
+
+            .archive-card {
+                gap: 12px;
+            }
+
+            .archive-visual {
+                aspect-ratio: 1.38;
+            }
+
+            .project-card,
+            .profile-panel,
+            .experience-panel,
+            .contact-panel,
+            .contact-map-card,
+            .contact-form-card {
+                padding: 14px;
+            }
+
+            .experience-meta {
+                gap: 8px;
+            }
+
+            .experience-kicker,
+            .experience-date {
+                min-height: 38px;
+                padding: 0 12px;
+                font-size: 0.8rem;
+            }
+
+            .gallery-dialog,
+            .cv-dialog {
+                width: calc(100% - 10px);
+            }
+
+            .gallery-panel,
+            .cv-panel {
+                height: calc(100dvh - 10px);
+                border-radius: 22px;
+            }
+
+            .gallery-hero {
+                min-height: 260px;
+                padding: 10px;
+            }
+
+            .gallery-counter {
+                right: 10px;
+                bottom: 10px;
+                padding: 8px 11px;
+                font-size: 0.7rem;
+            }
+
+            .footer-statement {
+                font-size: clamp(2.2rem, 12vw, 3rem);
             }
         }
 
@@ -2736,32 +3642,53 @@
                     </div>
                 </div>
 
-                <div class="hero-stage reveal" aria-hidden="true">
-                    <div class="floating-poster poster-main">
+                <div class="hero-stage reveal">
+                    <a class="floating-poster poster-main" data-hero-slot="poster-main" href="https://play.google.com/store/apps/details?id=com.taskwave.dailysync" target="_blank" rel="noreferrer">
                         <img src="store-assets/dailysync-shot-1.webp" alt="DailySync screenshot">
-                    </div>
-                    <div class="floating-poster poster-secondary">
+                        <span class="hero-poster-meta" aria-hidden="true">
+                            <img class="hero-poster-icon" src="store-assets/dailysync-icon.webp" alt="">
+                            <span class="hero-poster-copy">
+                                <strong>DailySync</strong>
+                                <span>Reminder scheduler</span>
+                            </span>
+                        </span>
+                    </a>
+                    <a class="floating-poster poster-secondary" data-hero-slot="poster-secondary" href="https://play.google.com/store/apps/details?id=com.holdmint" target="_blank" rel="noreferrer">
                         <img src="store-assets/holdmint-shot-1.webp" alt="EverySpend screenshot">
-                    </div>
-                    <div class="floating-poster poster-tertiary">
+                        <span class="hero-poster-meta" aria-hidden="true">
+                            <img class="hero-poster-icon" src="store-assets/holdmint-icon.webp" alt="">
+                            <span class="hero-poster-copy">
+                                <strong>EverySpend</strong>
+                                <span>Expense tracker</span>
+                            </span>
+                        </span>
+                    </a>
+                    <a class="floating-poster poster-tertiary" data-hero-slot="poster-tertiary" href="https://play.google.com/store/apps/details?id=com.photomontage.app" target="_blank" rel="noreferrer">
                         <img src="store-assets/photomontage-shot-1.webp" alt="Photomontage screenshot">
-                    </div>
+                        <span class="hero-poster-meta" aria-hidden="true">
+                            <img class="hero-poster-icon" src="store-assets/photomontage-icon.webp" alt="">
+                            <span class="hero-poster-copy">
+                                <strong>Photomontage</strong>
+                                <span>Montage editor</span>
+                            </span>
+                        </span>
+                    </a>
 
-                    <div class="floating-chip chip-one">
+                    <a class="floating-chip chip-one" data-hero-slot="chip-one" href="https://play.google.com/store/apps/details?id=com.gigglam" target="_blank" rel="noreferrer">
                         <img src="store-assets/gigglam-icon.webp" alt="Gigglam icon">
                         <div class="chip-copy">
                             <strong>Gigglam</strong>
                             <span>Real-time creator app</span>
                         </div>
-                    </div>
+                    </a>
 
-                    <div class="floating-chip chip-two">
+                    <a class="floating-chip chip-two" data-hero-slot="chip-two" href="https://play.google.com/store/apps/details?id=com.vinea" target="_blank" rel="noreferrer">
                         <img src="store-assets/vinea-icon.webp" alt="Vinea icon">
                         <div class="chip-copy">
                             <strong>Vinea</strong>
                             <span>Healthcare platform</span>
                         </div>
-                    </div>
+                    </a>
 
                     <div class="floating-note">
                         <p class="mini-label">Current role</p>
@@ -3341,6 +4268,8 @@
     <script>
         const portfolioConfig = window.PORTFOLIO_CONFIG || {};
         const activeAppCatalog = portfolioConfig.activeApps || {};
+        const heroShowcaseConfig = portfolioConfig.heroShowcase || {};
+        const heroShowcaseCatalog = heroShowcaseConfig.apps || {};
 
         const galleryNodes = Array.from(document.querySelectorAll(".auto-gallery"));
         const galleryOverlay = document.getElementById("gallery-overlay");
@@ -3374,7 +4303,19 @@
         const galleryPrev = document.getElementById("gallery-prev");
         const galleryNext = document.getElementById("gallery-next");
         const galleryClose = document.getElementById("gallery-close");
+        const heroPosterSlots = Array.from(document.querySelectorAll('[data-hero-slot^="poster-"]'));
+        const heroChipSlots = Array.from(document.querySelectorAll('[data-hero-slot^="chip-"]'));
         const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+        if ("scrollRestoration" in window.history) {
+            window.history.scrollRestoration = "manual";
+        }
+
+        window.addEventListener("load", () => {
+            if (!window.location.hash) {
+                window.scrollTo(0, 0);
+            }
+        }, { once: true });
 
         let activePreview = null;
         let activePreviewIndex = 0;
@@ -3445,8 +4386,130 @@
                 });
         };
 
+        const shuffleArray = (items) => {
+            const next = [...items];
+
+            for (let index = next.length - 1; index > 0; index -= 1) {
+                const swapIndex = Math.floor(Math.random() * (index + 1));
+                [next[index], next[swapIndex]] = [next[swapIndex], next[index]];
+            }
+
+            return next;
+        };
+
+        const resolveHeroKeys = (preferredKeys = [], count = 0) => {
+            const catalogKeys = Object.keys(heroShowcaseCatalog);
+            const uniquePreferred = preferredKeys.filter((key, index) => heroShowcaseCatalog[key] && preferredKeys.indexOf(key) === index);
+            const fillPool = shuffleArray(catalogKeys.filter((key) => !uniquePreferred.includes(key)));
+            const resolved = [...uniquePreferred];
+
+            while (resolved.length < count && fillPool.length > 0) {
+                resolved.push(fillPool.shift());
+            }
+
+            while (resolved.length < count && catalogKeys.length > 0) {
+                resolved.push(catalogKeys[resolved.length % catalogKeys.length]);
+            }
+
+            return resolved.slice(0, count);
+        };
+
+        const renderHeroShowcase = () => {
+            const catalogKeys = Object.keys(heroShowcaseCatalog);
+
+            if (catalogKeys.length === 0) {
+                return;
+            }
+
+            const posterCount = heroPosterSlots.length;
+            const chipCount = heroChipSlots.length;
+            const mode = heroShowcaseConfig.mode || "current";
+            const currentConfig = heroShowcaseConfig.current || {};
+            const posterPattern = Array.isArray(heroShowcaseConfig.posterPattern) && heroShowcaseConfig.posterPattern.length > 0
+                ? heroShowcaseConfig.posterPattern
+                    .map((value) => Number(value))
+                    .filter((value) => Number.isInteger(value) && value >= 0)
+                : [0, 1, 0];
+            const selectedAppCount = Math.max(
+                chipCount,
+                ...posterPattern.map((value) => value + 1)
+            );
+
+            let selectedAppKeys = [];
+
+            if (mode === "random") {
+                const shuffledKeys = shuffleArray(catalogKeys);
+                selectedAppKeys = resolveHeroKeys(shuffledKeys, selectedAppCount);
+            } else {
+                const currentApps = Array.isArray(currentConfig.apps)
+                    ? currentConfig.apps
+                    : Array.isArray(currentConfig.posters)
+                        ? currentConfig.posters
+                        : [];
+                selectedAppKeys = resolveHeroKeys(currentApps, selectedAppCount);
+            }
+
+            const posterKeys = Array.from({ length: posterCount }, (_, index) => {
+                const patternIndex = posterPattern[index] ?? index;
+                return selectedAppKeys[patternIndex] || selectedAppKeys[index % selectedAppKeys.length];
+            });
+
+            const chipKeys = Array.from({ length: chipCount }, (_, index) => (
+                selectedAppKeys[index] || selectedAppKeys[index % selectedAppKeys.length]
+            ));
+            const shotUsage = new Map();
+
+            heroPosterSlots.forEach((slot, index) => {
+                const appKey = posterKeys[index];
+                const app = heroShowcaseCatalog[appKey];
+                const image = slot.querySelector("img");
+                const icon = slot.querySelector(".hero-poster-icon");
+                const title = slot.querySelector(".hero-poster-copy strong");
+                const subtitle = slot.querySelector(".hero-poster-copy span");
+
+                if (!app || !image || !icon || !title || !subtitle) {
+                    return;
+                }
+
+                slot.href = app.href || "#";
+                slot.setAttribute("aria-label", `Open ${app.name} on Google Play`);
+                const heroShots = Array.isArray(app.heroShots) && app.heroShots.length > 0
+                    ? app.heroShots
+                    : [app.heroShot || app.icon || ""];
+                const currentShotIndex = shotUsage.get(appKey) || 0;
+                const shotSrc = heroShots[currentShotIndex % heroShots.length] || app.heroShot || app.icon || "";
+
+                image.src = shotSrc;
+                image.alt = `${app.name} screenshot`;
+                icon.src = app.icon || app.heroShot || "";
+                icon.alt = `${app.name} icon`;
+                title.textContent = app.name;
+                subtitle.textContent = app.subtitle || "";
+                shotUsage.set(appKey, currentShotIndex + 1);
+            });
+
+            heroChipSlots.forEach((slot, index) => {
+                const app = heroShowcaseCatalog[chipKeys[index]];
+                const image = slot.querySelector("img");
+                const title = slot.querySelector("strong");
+                const subtitle = slot.querySelector("span");
+
+                if (!app || !image || !title || !subtitle) {
+                    return;
+                }
+
+                slot.href = app.href || "#";
+                slot.setAttribute("aria-label", `Open ${app.name} on Google Play`);
+                image.src = app.icon || app.heroShot || "";
+                image.alt = `${app.name} icon`;
+                title.textContent = app.name;
+                subtitle.textContent = app.subtitle || "";
+            });
+        };
+
         applyCvConfig();
         renderActiveStatus();
+        renderHeroShowcase();
 
         const contactFormConfig = portfolioConfig.contactForm || {};
         const contactRecipient = contactFormConfig.recipientEmail || "shobhitshah094@gmail.com";
