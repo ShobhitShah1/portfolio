@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -820,35 +820,183 @@
                 radial-gradient(circle at 52% 22%, var(--hero-glow), transparent 38%),
                 linear-gradient(160deg, var(--hero-surface-start), var(--hero-surface-end));
             backdrop-filter: blur(18px);
-            box-shadow: var(--shadow);
+            box-shadow:
+                var(--shadow),
+                0 0 0 1px rgba(255, 255, 255, 0.08) inset,
+                0 1px 0 rgba(255, 255, 255, 0.14) inset;
             overflow: hidden;
             isolation: isolate;
+            perspective: 800px;
+            transform-style: preserve-3d;
+            transition: transform 400ms cubic-bezier(0.03, 0.98, 0.52, 0.99), box-shadow 400ms ease;
         }
 
+        /* Animated shimmer / light sweep */
+        .hero-stage-shimmer {
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            pointer-events: none;
+            z-index: 2;
+            overflow: hidden;
+        }
+
+        .hero-stage-shimmer::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                115deg,
+                transparent 30%,
+                rgba(255, 255, 255, 0.03) 40%,
+                rgba(255, 255, 255, 0.08) 45%,
+                rgba(255, 255, 255, 0.03) 50%,
+                transparent 60%
+            );
+            animation: hero-shimmer 10s ease-in-out infinite;
+            transform: translateX(-100%) rotate(-12deg);
+        }
+
+        @keyframes hero-shimmer {
+            0%, 100% { transform: translateX(-100%) rotate(-12deg); }
+            50% { transform: translateX(100%) rotate(-12deg); }
+        }
+
+        /* Pulsing glow border */
+        .hero-stage-glow {
+            position: absolute;
+            inset: -2px;
+            border-radius: 46px;
+            pointer-events: none;
+            z-index: -1;
+            background: conic-gradient(
+                from 0deg,
+                var(--hero-orb-a),
+                var(--hero-glow),
+                var(--hero-orb-b),
+                var(--hero-orb-a)
+            );
+            filter: blur(18px);
+            opacity: 0;
+            animation: glow-pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes glow-pulse {
+            0%, 100% { opacity: 0.12; transform: scale(1); }
+            50% { opacity: 0.28; transform: scale(1.004); }
+        }
+
+        /* Orb A — larger, animated, morphing */
         .hero-stage::before,
         .hero-stage::after {
             content: "";
             position: absolute;
             border-radius: 999px;
-            filter: blur(24px);
             pointer-events: none;
             z-index: 0;
         }
 
         .hero-stage::before {
-            width: 260px;
-            height: 260px;
-            top: -40px;
-            right: -10px;
-            background: var(--hero-orb-a);
+            width: 320px;
+            height: 320px;
+            top: -60px;
+            right: -20px;
+            background: radial-gradient(circle, var(--hero-orb-a), transparent 70%);
+            filter: blur(40px);
+            animation: orb-float-a 8s ease-in-out infinite;
         }
 
         .hero-stage::after {
-            width: 220px;
-            height: 220px;
-            bottom: -30px;
-            left: -24px;
-            background: var(--hero-orb-b);
+            width: 280px;
+            height: 280px;
+            bottom: -40px;
+            left: -30px;
+            background: radial-gradient(circle, var(--hero-orb-b), transparent 70%);
+            filter: blur(36px);
+            animation: orb-float-b 10s ease-in-out infinite;
+        }
+
+        @keyframes orb-float-a {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(18px, 24px) scale(1.08); }
+            66% { transform: translate(-12px, 14px) scale(0.95); }
+        }
+
+        @keyframes orb-float-b {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(-20px, -16px) scale(0.92); }
+            66% { transform: translate(14px, -22px) scale(1.06); }
+        }
+
+
+
+        /* ---- Staggered cascade entrance ---- */
+        .hero-stage.reveal .floating-poster,
+        .hero-stage.reveal .floating-chip,
+        .hero-stage.reveal .floating-note {
+            opacity: 0;
+            transform: translateY(28px) scale(0.94);
+            transition:
+                opacity 600ms cubic-bezier(0.16, 1, 0.3, 1),
+                transform 600ms cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .hero-stage.reveal.is-visible .poster-main {
+            opacity: 1;
+            transform: translateY(0) scale(1) rotate(-9deg);
+            transition-delay: 120ms;
+        }
+
+        .hero-stage.reveal.is-visible .poster-secondary {
+            opacity: 1;
+            transform: translateY(0) scale(1) rotate(7deg);
+            transition-delay: 260ms;
+        }
+
+        .hero-stage.reveal.is-visible .poster-tertiary {
+            opacity: 1;
+            transform: translateY(0) scale(1) rotate(-6deg);
+            transition-delay: 400ms;
+        }
+
+        .hero-stage.reveal.is-visible .chip-one {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            transition-delay: 520ms;
+        }
+
+        .hero-stage.reveal.is-visible .chip-two {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            transition-delay: 620ms;
+        }
+
+        .hero-stage.reveal.is-visible .floating-note {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            transition-delay: 700ms;
+        }
+
+        /* Shimmer & glow also animate in */
+        .hero-stage.reveal .hero-stage-shimmer::before {
+            opacity: 0;
+            transition: opacity 800ms ease 500ms;
+        }
+        .hero-stage.reveal.is-visible .hero-stage-shimmer::before {
+            opacity: 1;
+        }
+
+        .hero-stage.reveal .hero-stage-glow {
+            animation: none;
+            opacity: 0;
+            transition: opacity 1s ease 600ms;
+        }
+        .hero-stage.reveal.is-visible .hero-stage-glow {
+            animation: glow-pulse 4s ease-in-out infinite;
+            animation-delay: 600ms;
         }
 
         .floating-poster,
@@ -930,7 +1078,6 @@
             left: 56px;
             top: 72px;
             transform: rotate(-9deg);
-            animation: drift-a 9s ease-in-out infinite;
         }
 
         .poster-secondary {
@@ -939,7 +1086,6 @@
             right: 46px;
             top: 34px;
             transform: rotate(7deg);
-            animation: drift-b 8.6s ease-in-out infinite;
         }
 
         .poster-tertiary {
@@ -948,7 +1094,6 @@
             right: 98px;
             bottom: 58px;
             transform: rotate(-6deg);
-            animation: drift-c 9.4s ease-in-out infinite;
         }
 
         .floating-note {
@@ -1018,13 +1163,11 @@
         .chip-one {
             top: 92px;
             left: 252px;
-            animation: chip-float 8.8s ease-in-out infinite;
         }
 
         .chip-two {
             top: 320px;
             right: 60px;
-            animation: chip-float 10s ease-in-out infinite reverse;
         }
 
         .chip-copy {
@@ -2767,6 +2910,18 @@
                 display: none;
             }
 
+            .hero-stage-shimmer,
+            .hero-stage-glow {
+                display: none;
+            }
+
+            .hero-stage.reveal .floating-poster,
+            .hero-stage.reveal .floating-chip,
+            .hero-stage.reveal .floating-note {
+                opacity: 1;
+                transform: none;
+            }
+
             .floating-poster,
             .floating-note,
             .floating-chip {
@@ -3822,6 +3977,8 @@
                 </div>
 
                 <div class="hero-stage reveal">
+                    <div class="hero-stage-glow" aria-hidden="true"></div>
+                    <div class="hero-stage-shimmer" aria-hidden="true"></div>
                     <a class="floating-poster poster-main" data-hero-slot="poster-main" href="https://play.google.com/store/apps/details?id=com.taskwave.dailysync" target="_blank" rel="noreferrer">
                         <img src="store-assets/dailysync-shot-1.webp" alt="DailySync screenshot">
                         <span class="hero-poster-meta" aria-hidden="true">
@@ -5480,6 +5637,103 @@
         });
 
         revealNodes.forEach((node) => revealObserver.observe(node));
+
+        /* ─── Hero-stage interactive parallax tilt ─── */
+        const heroStage = document.querySelector(".hero-stage");
+
+        if (heroStage && window.matchMedia("(min-width: 1181px)").matches) {
+            let tiltRaf = null;
+            let targetRotateX = 0;
+            let targetRotateY = 0;
+            let currentRotateX = 0;
+            let currentRotateY = 0;
+
+            const lerp = (a, b, t) => a + (b - a) * t;
+            const MAX_TILT = 4; // degrees
+
+            heroStage.addEventListener("mousemove", (e) => {
+                const rect = heroStage.getBoundingClientRect();
+                const x = (e.clientX - rect.left) / rect.width;
+                const y = (e.clientY - rect.top) / rect.height;
+
+                targetRotateY = (x - 0.5) * MAX_TILT * 2;
+                targetRotateX = (0.5 - y) * MAX_TILT * 2;
+
+                if (!tiltRaf) {
+                    const animate = () => {
+                        currentRotateX = lerp(currentRotateX, targetRotateX, 0.08);
+                        currentRotateY = lerp(currentRotateY, targetRotateY, 0.08);
+
+                        heroStage.style.transform =
+                            `perspective(800px) rotateX(${currentRotateX.toFixed(3)}deg) rotateY(${currentRotateY.toFixed(3)}deg)`;
+
+                        if (
+                            Math.abs(currentRotateX - targetRotateX) > 0.01 ||
+                            Math.abs(currentRotateY - targetRotateY) > 0.01
+                        ) {
+                            tiltRaf = requestAnimationFrame(animate);
+                        } else {
+                            tiltRaf = null;
+                        }
+                    };
+                    tiltRaf = requestAnimationFrame(animate);
+                }
+            });
+
+            heroStage.addEventListener("mouseleave", () => {
+                targetRotateX = 0;
+                targetRotateY = 0;
+
+                const resetAnim = () => {
+                    currentRotateX = lerp(currentRotateX, 0, 0.06);
+                    currentRotateY = lerp(currentRotateY, 0, 0.06);
+
+                    heroStage.style.transform =
+                        `perspective(800px) rotateX(${currentRotateX.toFixed(3)}deg) rotateY(${currentRotateY.toFixed(3)}deg)`;
+
+                    if (Math.abs(currentRotateX) > 0.01 || Math.abs(currentRotateY) > 0.01) {
+                        tiltRaf = requestAnimationFrame(resetAnim);
+                    } else {
+                        heroStage.style.transform = "";
+                        tiltRaf = null;
+                    }
+                };
+
+                if (tiltRaf) cancelAnimationFrame(tiltRaf);
+                tiltRaf = requestAnimationFrame(resetAnim);
+            });
+        }
+
+        /* ─── Resume floating animations after cascade entrance ─── */
+        if (heroStage) {
+            const observer = new MutationObserver((mutations) => {
+                for (const m of mutations) {
+                    if (m.target.classList.contains("is-visible")) {
+                        // After cascade, re-enable the drift animations
+                        setTimeout(() => {
+                            heroStage.querySelectorAll(".poster-main").forEach(el => {
+                                el.style.animation = "drift-a 9s ease-in-out infinite";
+                            });
+                            heroStage.querySelectorAll(".poster-secondary").forEach(el => {
+                                el.style.animation = "drift-b 8.6s ease-in-out infinite";
+                            });
+                            heroStage.querySelectorAll(".poster-tertiary").forEach(el => {
+                                el.style.animation = "drift-c 9.4s ease-in-out infinite";
+                            });
+                            heroStage.querySelectorAll(".chip-one").forEach(el => {
+                                el.style.animation = "chip-float 8.8s ease-in-out infinite";
+                            });
+                            heroStage.querySelectorAll(".chip-two").forEach(el => {
+                                el.style.animation = "chip-float 10s ease-in-out infinite reverse";
+                            });
+                        }, 1200);
+                        observer.disconnect();
+                        break;
+                    }
+                }
+            });
+            observer.observe(heroStage, { attributes: true, attributeFilter: ["class"] });
+        }
     </script>
 </body>
 </html>
