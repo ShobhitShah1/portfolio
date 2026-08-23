@@ -3,13 +3,32 @@ window.PORTFOLIO = {
         "React Native",
         "TypeScript",
         "Expo",
+        "React Navigation",
         "Reanimated",
-        "React Query",
-        "Redux",
-        "Firebase",
+        "Firebase"
+    ],
+
+    supportingSkills: [
+        "JavaScript",
+        "Expo Router",
+        "Gesture Handler",
+        "TanStack Query",
+        "Redux Toolkit",
+        "Zustand",
+        "Context API",
+        "REST APIs",
+        "Native Modules",
+        "Push Notifications",
+        "Deep Linking",
         "Node.js",
         "Kotlin",
-        "Swift"
+        "Swift",
+        "Git",
+        "GitHub",
+        "Jest",
+        "CI/CD",
+        "App Store Connect",
+        "Google Play Console"
     ],
 
     socialLinks: [

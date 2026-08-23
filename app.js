@@ -7,28 +7,12 @@
     const projectList = document.getElementById("project-list");
     const otherWorkList = document.getElementById("other-work-list");
     const skillList = document.getElementById("skill-list");
+    const skillCount = document.getElementById("skill-count");
+    const supportingSkillList = document.getElementById("supporting-skill-list");
     const socialLinks = document.getElementById("social-links");
-    const dialog = document.getElementById("project-dialog");
-    const dialogIcon = document.getElementById("dialog-icon");
-    const dialogTitle = document.getElementById("dialog-title");
-    const dialogCategory = document.getElementById("dialog-category");
-    const dialogDescription = document.getElementById("dialog-description");
-    const dialogTags = document.getElementById("dialog-tags");
-    const dialogThumbs = document.getElementById("dialog-thumbs");
-    const dialogImage = document.getElementById("dialog-image");
-    const dialogCount = document.getElementById("dialog-count");
-    const dialogLink = document.getElementById("dialog-link");
-    const dialogClose = document.getElementById("dialog-close");
-    const dialogPrev = document.getElementById("dialog-prev");
-    const dialogNext = document.getElementById("dialog-next");
     const themeToggle = document.getElementById("theme-toggle");
     const introSequence = document.getElementById("intro-sequence");
-    const workCursorPreview = document.getElementById("work-cursor-preview");
-    const workCursorImage = document.getElementById("work-cursor-image");
-    const workCursorName = document.getElementById("work-cursor-name");
 
-    let activeProject = null;
-    let activeShot = 0;
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     const escapeHtml = (value) => String(value)
@@ -44,44 +28,27 @@
         }
 
         projectList.innerHTML = featuredProjects.map((project, index) => {
-            const projectIndex = projects.indexOf(project);
-            const previewShots = project.shots;
             const externalLink = project.href
-                ? `<a href="${escapeHtml(project.href)}" target="_blank" rel="noreferrer">Store &nearr;</a>`
+                ? `<a href="${escapeHtml(project.href)}" target="_blank" rel="noreferrer">View on store &nearr;</a>`
                 : "";
 
             return `
                 <article class="project reveal">
-                    <span class="project-index">${String(index + 1).padStart(2, "0")}</span>
+                    <div class="project-logo-stage">
+                        <span class="project-index" aria-hidden="true">${String(index + 1).padStart(2, "0")}</span>
+                        <img src="${escapeHtml(project.icon)}" alt="${escapeHtml(project.name)} app icon" loading="lazy">
+                    </div>
 
                     <div class="project-copy">
-                        <div class="project-heading">
-                            <img src="${escapeHtml(project.icon)}" alt="" loading="lazy">
-                            <div>
-                                <h3>${escapeHtml(project.name)}</h3>
-                                <p class="project-category">${escapeHtml(project.category)}</p>
-                            </div>
-                        </div>
+                        <p class="project-category">${escapeHtml(project.category)}</p>
+                        <h3>${escapeHtml(project.name)}</h3>
+                        <p class="project-feature-label">What it does</p>
                         <p class="project-description">${escapeHtml(project.description)}</p>
-                        <div class="project-actions">
-                            <button type="button" data-preview="${projectIndex}">View screens &rarr;</button>
+                        <div class="project-footer">
+                            <p class="project-tags">${(project.tags || []).map(escapeHtml).join(" / ")}</p>
                             ${externalLink}
                         </div>
                     </div>
-
-                    <button class="project-visual" type="button" data-preview="${projectIndex}" aria-label="View ${escapeHtml(project.name)} screenshots">
-                        <span class="project-screen-stack" aria-hidden="true">
-                            ${previewShots.map((shot, shotIndex) => `
-                                <img
-                                    class="project-screen project-screen-${shotIndex + 1}"
-                                    src="${escapeHtml(shot)}"
-                                    alt=""
-                                    loading="lazy"
-                                >
-                            `).join("")}
-                        </span>
-                        <span class="screen-count">${project.shots.length} screens</span>
-                    </button>
                 </article>
             `;
         }).join("");
@@ -92,39 +59,42 @@
             return;
         }
 
-        otherWorkList.innerHTML = otherProjects.map((project) => {
+        const renderItems = (duplicate = false) => otherProjects.map((project) => {
             const projectIndex = projects.indexOf(project);
+            const tag = project.href ? "a" : "div";
+            const link = project.href ? ` href="${escapeHtml(project.href)}" target="_blank" rel="noreferrer"` : "";
             return `
-                <button class="other-work-button" type="button" data-preview="${projectIndex}">
-                    <span>${escapeHtml(project.name)}</span>
-                    <span>&nearr;</span>
-                </button>
+                <${tag} class="other-work-button" data-project-index="${projectIndex}"${link}${duplicate && project.href ? ` tabindex="-1"` : ""}>
+                    <img src="${escapeHtml(project.icon)}" alt="" loading="lazy">
+                    <span class="other-work-copy"><strong>${escapeHtml(project.name)}</strong><small>${escapeHtml(project.category)}</small></span>
+                    <span>${project.href ? "&nearr;" : ""}</span>
+                </${tag}>
             `;
         }).join("");
+
+        otherWorkList.innerHTML = `
+            <div class="other-work-track">
+                <div class="other-work-group">${renderItems()}</div>
+                <div class="other-work-group" aria-hidden="true">${renderItems(true)}</div>
+            </div>
+        `;
     };
 
     const renderDetails = () => {
         if (skillList) {
             const skills = config.skills || [];
-            const primaryRoles = ["Core framework", "Language", "Toolchain"];
-            const primarySkills = skills.slice(0, 3);
-            const secondarySkills = skills.slice(3);
+            if (skillCount) {
+                skillCount.textContent = `Core stack / ${skills.length} skills`;
+            }
+            skillList.innerHTML = skills
+                .map((skill) => `<span class="skill-word">${escapeHtml(skill)}</span>`)
+                .join("");
+        }
 
-            skillList.innerHTML = `
-                <div class="skill-primary-row">
-                    ${primarySkills.map((skill, index) => `
-                        <div class="skill-primary">
-                            <span class="skill-number">0${index + 1}</span>
-                            <span class="skill-name">${escapeHtml(skill)}</span>
-                            <span class="skill-role">${primaryRoles[index]}</span>
-                        </div>
-                    `).join("")}
-                </div>
-                <span class="skill-secondary-label">Also working with</span>
-                <div class="skill-secondary-row">
-                    ${secondarySkills.map((skill) => `<span class="skill-secondary">${escapeHtml(skill)}</span>`).join("")}
-                </div>
-            `;
+        if (supportingSkillList) {
+            supportingSkillList.innerHTML = (config.supportingSkills || [])
+                .map((skill) => `<span>${escapeHtml(skill)}</span>`)
+                .join("");
         }
 
         if (socialLinks) {
@@ -132,60 +102,6 @@
                 .map((link) => `<a href="${escapeHtml(link.href)}" target="_blank" rel="noreferrer">${escapeHtml(link.label)}</a>`)
                 .join("");
         }
-    };
-
-    const renderDialog = () => {
-        if (!activeProject?.shots?.length) {
-            return;
-        }
-
-        const shots = activeProject.shots;
-        activeShot = (activeShot + shots.length) % shots.length;
-        dialogTitle.textContent = activeProject.name;
-        dialogCategory.textContent = activeProject.category;
-        dialogIcon.src = activeProject.icon;
-        dialogIcon.alt = `${activeProject.name} icon`;
-        dialogDescription.textContent = activeProject.description;
-        dialogTags.innerHTML = (activeProject.tags || [])
-            .map((tag) => `<span>${escapeHtml(tag)}</span>`)
-            .join("");
-        dialogImage.src = shots[activeShot];
-        dialogImage.alt = `${activeProject.name} screenshot ${activeShot + 1}`;
-        dialogCount.textContent = `${activeShot + 1} / ${shots.length}`;
-        dialogThumbs.innerHTML = shots.map((shot, index) => `
-            <button class="${index === activeShot ? "is-active" : ""}" type="button" data-dialog-shot="${index}" aria-label="View screenshot ${index + 1}">
-                <img src="${escapeHtml(shot)}" alt="">
-            </button>
-        `).join("");
-        dialogPrev.hidden = shots.length < 2;
-        dialogNext.hidden = shots.length < 2;
-
-        if (activeProject.href) {
-            dialogLink.href = activeProject.href;
-            dialogLink.hidden = false;
-        } else {
-            dialogLink.hidden = true;
-        }
-    };
-
-    const openProject = (index) => {
-        activeProject = projects[index];
-        activeShot = 0;
-
-        if (!activeProject || !dialog) {
-            return;
-        }
-
-        renderDialog();
-        dialog.showModal();
-        document.body.style.overflow = "hidden";
-    };
-
-    const closeDialog = () => {
-        if (dialog?.open) {
-            dialog.close();
-        }
-        document.body.style.overflow = "";
     };
 
     renderProjects();
@@ -219,54 +135,6 @@
         introSequence?.classList.add("is-finished");
     }
 
-    document.addEventListener("click", (event) => {
-        const trigger = event.target.closest("[data-preview]");
-        if (trigger) {
-            openProject(Number(trigger.dataset.preview));
-        }
-    });
-
-    dialogClose?.addEventListener("click", closeDialog);
-    dialogPrev?.addEventListener("click", () => {
-        activeShot -= 1;
-        renderDialog();
-    });
-    dialogNext?.addEventListener("click", () => {
-        activeShot += 1;
-        renderDialog();
-    });
-    dialogThumbs?.addEventListener("click", (event) => {
-        const thumb = event.target.closest("[data-dialog-shot]");
-        if (thumb) {
-            activeShot = Number(thumb.dataset.dialogShot);
-            renderDialog();
-        }
-    });
-    dialog?.addEventListener("click", (event) => {
-        if (event.target === dialog) {
-            closeDialog();
-        }
-    });
-    dialog?.addEventListener("close", () => {
-        document.body.style.overflow = "";
-    });
-
-    document.addEventListener("keydown", (event) => {
-        if (!dialog?.open) {
-            return;
-        }
-
-        if (event.key === "ArrowLeft") {
-            activeShot -= 1;
-            renderDialog();
-        }
-
-        if (event.key === "ArrowRight") {
-            activeShot += 1;
-            renderDialog();
-        }
-    });
-
     const revealNodes = document.querySelectorAll(".reveal");
 
     if (reduceMotion || !("IntersectionObserver" in window)) {
@@ -294,30 +162,6 @@
 
     updateHeader();
     window.addEventListener("scroll", updateHeader, { passive: true });
-
-    if (otherWorkList && workCursorPreview && window.matchMedia("(pointer: fine)").matches) {
-        otherWorkList.addEventListener("pointerover", (event) => {
-            const trigger = event.target.closest("[data-preview]");
-            const project = trigger ? projects[Number(trigger.dataset.preview)] : null;
-
-            if (!project) {
-                return;
-            }
-
-            workCursorImage.src = project.shots[0];
-            workCursorName.textContent = project.name;
-            workCursorPreview.classList.add("is-visible");
-        });
-
-        otherWorkList.addEventListener("pointermove", (event) => {
-            workCursorPreview.style.setProperty("--cursor-x", `${event.clientX}px`);
-            workCursorPreview.style.setProperty("--cursor-y", `${event.clientY}px`);
-        });
-
-        otherWorkList.addEventListener("pointerleave", () => {
-            workCursorPreview.classList.remove("is-visible");
-        });
-    }
 
     if ("IntersectionObserver" in window) {
         const sectionObserver = new IntersectionObserver((entries) => {

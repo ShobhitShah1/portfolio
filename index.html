@@ -31,10 +31,9 @@
 
     <header class="site-header">
         <nav class="nav shell" aria-label="Primary navigation">
-            <a class="wordmark" href="#top">Shobhit Shah</a>
             <div class="nav-links">
-                <a href="#work">Work</a>
                 <a href="#about">About</a>
+                <a href="#work">Work</a>
                 <a href="#contact">Contact</a>
             </div>
             <div class="nav-actions">
@@ -58,33 +57,65 @@
 
     <main id="top">
         <section class="hero shell" id="hero-stage">
-            <div class="hero-center reveal">
-                <div class="profile-line">
-                    <img src="store-assets/shobhit-avatar.jpg" alt="Shobhit Shah">
-                    <span>React Native Engineer</span>
-                </div>
-
-                <p class="mono">Surat, India / Working worldwide</p>
-                <h1>Shobhit Shah</h1>
-                <p class="hero-statement">
-                    I build mobile products with clear thinking, reliable engineering,
-                    and just enough motion to make them feel alive.
+            <div class="hero-copy reveal">
+                <p class="mono">Shobhit Shah / Surat, India / Working worldwide</p>
+                <h1>React Native<br><em>Engineer.</em></h1>
+                <p class="hero-intro">
+                    I’m Shobhit—<strong>4+ years</strong> building and shipping <strong>10+ production apps</strong>
+                    for iOS and Android. Currently at <strong>Vasundhara Infotech</strong>, working across
+                    product thinking, TypeScript, Expo, native integrations, performance, and store releases.
                 </p>
+                <p class="hero-availability"><span></span> Open to React Native roles and selected projects</p>
 
                 <div class="hero-links">
-                    <a href="#work">Selected work <span>&darr;</span></a>
-                    <a href="mailto:shobhitshah094@gmail.com">Email me <span>&nearr;</span></a>
+                    <a class="hero-primary" href="mailto:shobhitshah094@gmail.com">Schedule an interview <span>&nearr;</span></a>
+                    <a class="hero-secondary" href="ShobhitCV.pdf" target="_blank" rel="noreferrer">Download résumé <span>&darr;</span></a>
+                    <a class="hero-secondary" href="#work">View work <span>&darr;</span></a>
                 </div>
+            </div>
+        </section>
+
+        <section class="section shell" id="about">
+            <div class="section-intro about-intro reveal">
+                <p class="mono">01 / About</p>
+                <h2>The work behind<br><em>the work.</em></h2>
+            </div>
+
+            <div class="about-story reveal">
+                <p class="about-lead">I turn early ideas into mobile products that remain understandable after the first release.</p>
+                <p>My work sits between product thinking, interface engineering, mobile architecture, native integrations, and the small details that make an app feel dependable.</p>
+            </div>
+
+            <div class="experience-story reveal">
+                <p class="mono">Experience / Current</p>
+                <img class="company-mark" src="store-assets/vasundhara-logo.png" alt="Vasundhara Infotech logo">
+                <p class="experience-years">2021—Now</p>
+                <h3>React Native Engineer<br><em>Vasundhara Infotech LLP</em></h3>
+                <p>Building, refining, releasing, and maintaining production apps across iOS and Android.</p>
+            </div>
+
+            <div class="skills-story reveal">
+                <p class="mono" id="skill-count">Core stack</p>
+                <svg class="skills-mark" viewBox="0 0 100 100" aria-hidden="true">
+                    <ellipse cx="50" cy="50" rx="38" ry="14"></ellipse>
+                    <ellipse cx="50" cy="50" rx="38" ry="14" transform="rotate(60 50 50)"></ellipse>
+                    <ellipse cx="50" cy="50" rx="38" ry="14" transform="rotate(120 50 50)"></ellipse>
+                    <circle cx="50" cy="50" r="6"></circle>
+                </svg>
+                <div class="skill-list" id="skill-list"></div>
+                <p class="mono supporting-skills-label">Supporting toolkit</p>
+                <div class="supporting-skill-list" id="supporting-skill-list"></div>
+                <p class="skills-focus">Focused on mobile architecture, interface engineering, product refinement, and app releases.</p>
             </div>
 
         </section>
 
         <section class="section shell" id="work">
-            <div class="section-intro reveal">
-                <p class="mono">01 / Selected work</p>
-                <h2>Products designed to be used, not just viewed.</h2>
+            <div class="section-intro work-intro reveal">
+                <p class="mono">02 / Selected work</p>
+                <h2>Four products.<br><em>One continuing story.</em></h2>
                 <p>
-                    A selection of mobile products I helped shape, engineer, refine, and release.
+                    From fitness and healthcare to finance and productivity—each chapter starts with a different problem and ends as a dependable mobile product.
                 </p>
             </div>
 
@@ -93,96 +124,6 @@
             <div class="other-work reveal">
                 <p class="mono">Additional work</p>
                 <div class="other-work-list" id="other-work-list"></div>
-            </div>
-            <div class="work-cursor-preview" id="work-cursor-preview" aria-hidden="true">
-                <img id="work-cursor-image" src="" alt="">
-                <span id="work-cursor-name"></span>
-            </div>
-        </section>
-
-        <section class="section shell" id="about">
-            <div class="section-intro reveal">
-                <p class="mono">02 / About</p>
-                <h2>Engineer by role. Product thinker by habit.</h2>
-            </div>
-
-            <div class="about-layout">
-                <div class="about-copy reveal">
-                    <p class="about-lead">
-                        I work across product thinking, interface design, and mobile engineering
-                        to turn early ideas into dependable apps.
-                    </p>
-                    <p>
-                        My focus is React Native, TypeScript, Expo, native integrations, and the
-                        details between screens: loading states, transitions, gestures, and release polish.
-                    </p>
-                    <p>
-                        I value simple systems, honest interfaces, and code that remains understandable
-                        after the first version ships.
-                    </p>
-
-                    <div class="about-stats">
-                        <div>
-                            <strong>4+</strong>
-                            <span>Years building mobile</span>
-                        </div>
-                        <div>
-                            <strong>10+</strong>
-                            <span>Products contributed to</span>
-                        </div>
-                        <div>
-                            <strong>2</strong>
-                            <span>Platforms, one codebase</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="about-details reveal">
-                    <div class="detail-row">
-                        <span>Experience</span>
-                        <div>
-                            <strong>React Native Engineer</strong>
-                            <p>Vasundhara Infotech LLP</p>
-                            <p>2021 - Present</p>
-                        </div>
-                    </div>
-
-                    <div class="detail-row">
-                        <span>Core stack</span>
-                        <div class="skill-list" id="skill-list"></div>
-                    </div>
-
-                    <div class="detail-row">
-                        <span>Focus</span>
-                        <div>
-                            <p>Mobile architecture</p>
-                            <p>Interface engineering</p>
-                            <p>Product refinement</p>
-                            <p>App release and maintenance</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="process reveal">
-                <p class="mono">A simple process</p>
-                <ol>
-                    <li>
-                        <span>01</span>
-                        <strong>Understand</strong>
-                        <p>Define the user, problem, constraints, and shape of the first useful release.</p>
-                    </li>
-                    <li>
-                        <span>02</span>
-                        <strong>Build</strong>
-                        <p>Create the product system, engineer the core flows, and keep decisions visible.</p>
-                    </li>
-                    <li>
-                        <span>03</span>
-                        <strong>Refine</strong>
-                        <p>Test the edges, tune motion and performance, then prepare a reliable release.</p>
-                    </li>
-                </ol>
             </div>
         </section>
 
@@ -206,39 +147,7 @@
         <a href="#top">Back to top &uarr;</a>
     </footer>
 
-    <dialog class="project-dialog" id="project-dialog">
-        <div class="dialog-header">
-            <div class="dialog-app">
-                <img id="dialog-icon" src="" alt="">
-                <div>
-                <p class="mono" id="dialog-category"></p>
-                <h2 id="dialog-title"></h2>
-                </div>
-            </div>
-            <button id="dialog-close" type="button" aria-label="Close preview">Close</button>
-        </div>
-
-        <div class="dialog-body">
-            <div class="dialog-media">
-                <button id="dialog-prev" type="button" aria-label="Previous screenshot">&larr;</button>
-                <img id="dialog-image" src="" alt="">
-                <button id="dialog-next" type="button" aria-label="Next screenshot">&rarr;</button>
-            </div>
-
-            <aside class="dialog-aside">
-                <p id="dialog-description"></p>
-                <div class="dialog-tags" id="dialog-tags"></div>
-                <div class="dialog-thumbs" id="dialog-thumbs"></div>
-            </aside>
-        </div>
-
-        <div class="dialog-footer">
-            <span id="dialog-count"></span>
-            <a id="dialog-link" href="#" target="_blank" rel="noreferrer">Open project &nearr;</a>
-        </div>
-    </dialog>
-
-    <script src="site-config.js"></script>
-    <script src="app.js"></script>
+    <script src="site-config.js?v=2"></script>
+    <script src="app.js?v=2"></script>
 </body>
 </html>
