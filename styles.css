@@ -386,12 +386,35 @@ img {
     font-size: 11px;
 }
 
-.hero-availability span {
-    width: 6px;
-    height: 6px;
+.hero-availability > span {
+    position: relative;
+    width: 9px;
+    height: 9px;
+    flex: 0 0 9px;
+}
+
+.hero-availability > span::before,
+.hero-availability > span::after {
+    position: absolute;
+    border-radius: 50%;
+    content: "";
+}
+
+.hero-availability > span::before {
+    inset: 2px;
     border-radius: 50%;
     background: var(--accent);
-    box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 18%, transparent);
+}
+
+.hero-availability > span::after {
+    inset: 0;
+    border: 1px solid var(--accent);
+    animation: availability-pulse 2.4s var(--ease-out) infinite;
+}
+
+@keyframes availability-pulse {
+    0% { opacity: 0.75; transform: scale(0.7); }
+    70%, 100% { opacity: 0; transform: scale(1.8); }
 }
 
 .hero h1 {
@@ -421,6 +444,19 @@ img {
     font-family: Georgia, serif;
     font-style: italic;
     font-weight: 400;
+}
+
+.company-inline {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.22em;
+    white-space: nowrap;
+}
+
+.company-inline img {
+    width: 0.86em;
+    height: 0.86em;
+    object-fit: contain;
 }
 
 .hero-links {
@@ -492,11 +528,6 @@ img {
     margin-bottom: 42px;
     grid-template-columns: 1fr;
     gap: 24px;
-}
-
-#about {
-    padding-bottom: 56px;
-    border-top: 0;
 }
 
 #work {
@@ -612,17 +643,69 @@ img {
     display: flex;
     margin-top: auto;
     padding-top: 30px;
-    align-items: center;
-    justify-content: space-between;
-    gap: 18px;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 14px;
 }
 
-.project-footer a {
-    flex: 0 0 auto;
-    padding-bottom: 3px;
-    border-bottom: 1px solid var(--line);
+.project-footer .store-links {
+    width: 100%;
+    flex-wrap: nowrap;
+}
+
+.project-footer .store-link {
+    display: flex;
+    width: auto;
+    flex: 1 1 0;
+    padding: 0 14px;
+    justify-content: center;
+    gap: 9px;
+}
+
+.project-footer .store-link::after {
     color: var(--white);
+    content: attr(title);
     font-size: 10px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.store-links {
+    display: flex;
+    min-height: 46px;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+}
+
+.store-links:empty {
+    display: none;
+}
+
+.store-link {
+    display: grid;
+    width: 46px;
+    height: 46px;
+    flex: 0 0 46px;
+    place-items: center;
+    border: 0;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.055);
+    box-shadow: inset 0 0 0 1px var(--line-soft);
+    transition: background-color 180ms ease, box-shadow 180ms ease;
+}
+
+.store-link svg {
+    width: 24px;
+    height: 24px;
+    flex: 0 0 24px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .store-link:hover {
+        background: rgba(255, 255, 255, 0.11);
+        box-shadow: inset 0 0 0 1px var(--line);
+    }
 }
 
 .other-work {
@@ -642,7 +725,7 @@ img {
 }
 
 .other-work-track {
-    animation: other-work-scroll 32s linear infinite;
+    animation: other-work-scroll 36s linear infinite;
 }
 
 .other-work-list:hover .other-work-track {
@@ -650,36 +733,39 @@ img {
 }
 
 .other-work-group {
-    gap: 12px;
-    padding-right: 12px;
+    gap: 10px;
+    padding-right: 10px;
 }
 
 .other-work-button {
-    display: flex;
-    width: 260px;
+    display: grid;
+    width: 290px;
+    min-height: 128px;
     padding: 14px;
-    flex: 0 0 260px;
-    align-items: center;
-    gap: 12px;
-    border: 1px solid var(--line);
-    border-radius: 14px;
-    background: var(--black-soft);
+    overflow: hidden;
+    flex: 0 0 290px;
+    border: 0;
+    border-radius: 16px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.018));
+    box-shadow: inset 0 0 0 1px var(--line-soft);
     color: var(--grey);
     font-size: 12px;
     text-align: left;
     cursor: default;
-    transition: border-color 180ms ease;
+    transition: background 180ms ease;
 }
 
-a.other-work-button {
-    cursor: pointer;
+.other-work-summary {
+    display: flex;
+    align-items: center;
+    gap: 12px;
 }
 
-.other-work-button > img {
-    width: 48px;
-    height: 48px;
-    flex: 0 0 48px;
-    border-radius: 12px;
+.other-work-summary > img {
+    width: 50px;
+    height: 50px;
+    flex: 0 0 50px;
+    border-radius: 13px;
     object-fit: cover;
 }
 
@@ -690,13 +776,13 @@ a.other-work-button {
     gap: 2px;
 }
 
-.other-work-button strong {
+.other-work-copy strong {
     color: var(--white);
     font-size: 16px;
     font-weight: 500;
 }
 
-.other-work-button small {
+.other-work-copy small {
     overflow: hidden;
     color: var(--grey-dark);
     font-size: 9px;
@@ -704,15 +790,56 @@ a.other-work-button {
     white-space: nowrap;
 }
 
-.other-work-button:hover {
-    border-color: var(--grey-dark);
-    color: var(--white);
+.other-work-details {
+    display: grid;
+    margin-top: 12px;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: end;
+    gap: 12px;
+}
+
+.other-work-details p {
+    display: -webkit-box;
+    overflow: hidden;
+    color: var(--grey);
+    font-size: 11px;
+    line-height: 1.45;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+}
+
+.other-work-details .store-links {
+    min-height: 40px;
+    flex-wrap: nowrap;
+}
+
+.other-work-details .store-link {
+    width: 40px;
+    height: 40px;
+    flex-basis: 40px;
+    border-radius: 12px;
+}
+
+.other-work-details .store-link svg {
+    width: 21px;
+    height: 21px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .other-work-button:hover {
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.075), rgba(255, 255, 255, 0.025));
+    }
 }
 
 @keyframes other-work-scroll {
     to {
         transform: translateX(-50%);
     }
+}
+
+#about {
+    padding-bottom: 56px;
+    border-top: 0;
 }
 
 .about-intro {
@@ -759,6 +886,12 @@ a.other-work-button {
     margin-top: 66px;
     padding-top: 24px;
     border-top: 1px solid var(--line);
+}
+
+#about .experience-story {
+    margin-top: 0;
+    padding-top: 0;
+    border-top: 0;
 }
 
 .experience-story > :not(.company-mark),
@@ -851,17 +984,15 @@ a.other-work-button {
     line-height: 1.5;
 }
 
+.supporting-skill-list .is-featured {
+    color: var(--white);
+    font-weight: 600;
+}
+
 .supporting-skill-list span:not(:last-child)::after {
     margin: 0 0.7em;
     color: var(--grey-dark);
     content: "/";
-}
-
-.skills-focus {
-    max-width: 620px;
-    margin-top: 24px;
-    color: var(--grey);
-    font-size: 13px;
 }
 
 .contact {
@@ -907,7 +1038,35 @@ a.other-work-button {
 
 .footer nav {
     display: flex;
-    gap: 18px;
+    gap: 8px;
+}
+
+.footer nav a {
+    display: grid;
+    width: 34px;
+    height: 34px;
+    place-items: center;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    color: var(--grey);
+    transition: border-color 180ms ease, color 180ms ease, transform 180ms var(--ease-out);
+}
+
+.footer nav svg {
+    width: 15px;
+    height: 15px;
+}
+
+.footer nav svg:not([fill="none"]) {
+    fill: currentColor;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .footer nav a:hover {
+        border-color: var(--white);
+        color: var(--white);
+        transform: translateY(-2px);
+    }
 }
 
 .footer > a {
@@ -1081,8 +1240,13 @@ a.other-work-button {
         gap: 10px;
     }
 
-    .project-footer a {
-        width: max-content;
+    .project-footer .store-links {
+        width: 100%;
+    }
+
+    .other-work-button {
+        width: min(280px, calc(100vw - 48px));
+        flex-basis: min(280px, calc(100vw - 48px));
     }
 
     .other-work {
@@ -1144,6 +1308,15 @@ a.other-work-button {
     .contact-email {
         font-size: 15px;
     }
+
+    .project-footer .store-links:has(.store-link:nth-child(2)) {
+        flex-direction: column;
+    }
+
+    .project-footer .store-links:has(.store-link:nth-child(2)) .store-link {
+        width: 100%;
+        flex-basis: 46px;
+    }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1168,6 +1341,12 @@ a.other-work-button {
         transform: none;
     }
 
+    .hero-availability > span::after {
+        animation: none;
+        opacity: 0.4;
+        transform: none;
+    }
+
     .other-work-list {
         overflow-x: auto;
         mask-image: none;
@@ -1176,4 +1355,5 @@ a.other-work-button {
     .other-work-track {
         animation: none;
     }
+
 }

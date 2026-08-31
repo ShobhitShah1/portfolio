@@ -2,33 +2,52 @@ window.PORTFOLIO = {
     skills: [
         "React Native",
         "TypeScript",
-        "Expo",
-        "React Navigation",
-        "Reanimated",
-        "Firebase"
+        "Expo & EAS",
+        "Payment Integrations",
+        "Performance"
     ],
 
     supportingSkills: [
         "JavaScript",
+        "Node.js",
+        "Firebase",
+        "REST APIs",
+        "Authentication",
+        "In-App Purchases",
         "Expo Router",
+        "React Navigation",
+        "Reanimated",
         "Gesture Handler",
         "TanStack Query",
         "Redux Toolkit",
         "Zustand",
         "Context API",
-        "REST APIs",
         "Native Modules",
         "Push Notifications",
         "Deep Linking",
-        "Node.js",
+        "Analytics",
         "Kotlin",
         "Swift",
+        "Figma",
         "Git",
         "GitHub",
         "Jest",
         "CI/CD",
         "App Store Connect",
         "Google Play Console"
+    ],
+
+    featuredSupportingSkills: [
+        "Node.js",
+        "Firebase",
+        "REST APIs",
+        "In-App Purchases",
+        "React Navigation",
+        "Reanimated",
+        "Redux Toolkit",
+        "Native Modules",
+        "Push Notifications",
+        "Figma"
     ],
 
     socialLinks: [
@@ -64,6 +83,7 @@ window.PORTFOLIO = {
             ],
             tags: ["React Native", "TypeScript", "Fitness"],
             href: "https://play.google.com/store/apps/details?id=com.championspirit.app",
+            appStore: "https://apps.apple.com/us/app/champion-spirit/id1315005130",
             featured: true
         },
         {
@@ -79,6 +99,7 @@ window.PORTFOLIO = {
             ],
             tags: ["React Native", "Education", "Healthcare"],
             href: "https://play.google.com/store/apps/details?id=com.vinea",
+            appStore: "https://apps.apple.com/us/app/vinea-pro/id6670586858",
             featured: true
         },
         {
@@ -152,6 +173,7 @@ window.PORTFOLIO = {
                 "store-assets/roofpair-shot-3.webp"
             ],
             tags: ["Operations", "Services"],
+            appStore: "https://apps.apple.com/us/app/roofpair/id6741769273",
             featured: false
         },
         {
@@ -165,6 +187,7 @@ window.PORTFOLIO = {
                 "store-assets/fetangift-shot-4.webp"
             ],
             tags: ["Commerce", "Discovery"],
+            appStore: "https://apps.apple.com/us/app/fetan-gift/id6447110594",
             featured: false
         },
         {
