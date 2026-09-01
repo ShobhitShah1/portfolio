@@ -1,7 +1,13 @@
 (function () {
     const config = window.PORTFOLIO || {};
     const projects = Array.isArray(config.projects) ? config.projects : [];
-    const featuredProjects = projects.filter((project) => project.featured).slice(0, 4);
+    const shuffledProjects = projects.filter((project) => project.href || project.playStore || project.appStore);
+    for (let index = shuffledProjects.length - 1; index > 0; index -= 1) {
+        const randomIndex = Math.floor(Math.random() * (index + 1));
+        [shuffledProjects[index], shuffledProjects[randomIndex]] = [shuffledProjects[randomIndex], shuffledProjects[index]];
+    }
+    const featuredProjects = shuffledProjects.slice(0, 4);
+    console.assert(new Set(featuredProjects).size === featuredProjects.length, "Featured projects must be unique");
     const otherProjects = projects.filter((project) => !featuredProjects.includes(project));
 
     const projectList = document.getElementById("project-list");
@@ -55,10 +61,11 @@
                         <h3>${escapeHtml(project.name)}</h3>
                         <p class="project-feature-label">What it does</p>
                         <p class="project-description">${escapeHtml(project.description)}</p>
-                        <div class="project-footer">
-                            <p class="project-tags">${(project.tags || []).map(escapeHtml).join(" / ")}</p>
-                            <div class="store-links">${renderStoreLinks(project)}</div>
-                        </div>
+                    </div>
+
+                    <div class="project-footer">
+                        <p class="project-tags">${(project.tags || []).map(escapeHtml).join(" / ")}</p>
+                        <div class="store-links">${renderStoreLinks(project)}</div>
                     </div>
                 </article>
             `).join("");

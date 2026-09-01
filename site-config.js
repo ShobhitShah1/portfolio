@@ -72,7 +72,7 @@ window.PORTFOLIO = {
     projects: [
         {
             name: "Champion Spirit",
-            category: "Fitness platform",
+            category: "Fitness app",
             description: "A training platform connecting athletes with coaching, progress tracking, and performance tools.",
             icon: "store-assets/championspirit-icon.webp",
             shots: [
@@ -88,7 +88,7 @@ window.PORTFOLIO = {
         },
         {
             name: "Vinea",
-            category: "Healthcare learning",
+            category: "Healthcare app",
             description: "A focused healthcare learning environment designed around clear content and effortless access.",
             icon: "store-assets/vinea-icon.webp",
             shots: [
@@ -104,7 +104,7 @@ window.PORTFOLIO = {
         },
         {
             name: "EverySpend",
-            category: "Private expense tracker",
+            category: "Finance app",
             description: "Simple financial tracking with clear data visualization and a privacy-first product experience.",
             icon: "store-assets/holdmint-icon.webp",
             shots: [
@@ -119,7 +119,7 @@ window.PORTFOLIO = {
         },
         {
             name: "DailySync",
-            category: "Reminder scheduler",
+            category: "Reminder app",
             description: "A context-aware reminder engine that helps people organize routines and protect their focus.",
             icon: "store-assets/dailysync-icon.webp",
             shots: [

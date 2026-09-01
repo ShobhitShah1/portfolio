@@ -566,8 +566,10 @@ img {
 }
 
 .project {
+    display: flex;
     min-width: 0;
     padding: 12px;
+    flex-direction: column;
     background: var(--black);
 }
 
@@ -602,8 +604,9 @@ img {
 
 .project-copy {
     display: flex;
-    min-height: 330px;
-    padding: 24px 14px 14px;
+    min-height: 230px;
+    padding: 24px 14px 16px;
+    flex: 1;
     flex-direction: column;
 }
 
@@ -619,10 +622,11 @@ img {
 
 .project h3 {
     margin-top: 8px;
-    font-size: clamp(30px, 2.7vw, 42px);
+    font-size: clamp(26px, 2.25vw, 34px);
     font-weight: 500;
     letter-spacing: -0.065em;
     line-height: 0.95;
+    white-space: nowrap;
 }
 
 .project-feature-label {
@@ -1122,18 +1126,22 @@ img {
     .site-header {
         top: 0;
         width: 100%;
+        border-color: var(--line-soft);
+        background: var(--header);
     }
 
     .nav {
+        display: flex;
         width: calc(100% - 32px);
         height: 66px;
         padding: 0;
-        grid-template-columns: 1fr auto;
-        row-gap: 0;
+        justify-content: space-between;
     }
 
     .nav-links {
-        display: none;
+        display: flex;
+        grid-column: auto;
+        gap: 16px;
     }
 
     .resume-link {
@@ -1142,9 +1150,9 @@ img {
 
     .nav-actions {
         display: flex;
-        grid-column: 2;
-        grid-row: 1;
-        gap: 14px;
+        grid-column: auto;
+        grid-row: auto;
+        gap: 10px;
     }
 
     .hero {
@@ -1214,7 +1222,7 @@ img {
     }
 
     .project h3 {
-        font-size: clamp(27px, 8vw, 34px);
+        font-size: clamp(23px, 6.7vw, 29px);
         line-height: 0.98;
     }
 
@@ -1233,6 +1241,7 @@ img {
 
     .project-footer {
         display: grid;
+        grid-column: 1 / -1;
         margin-top: 0;
         padding-top: 18px;
         align-items: start;
@@ -1292,6 +1301,10 @@ img {
 }
 
 @media (max-width: 430px) {
+    .resume-link {
+        display: none;
+    }
+
     .hero-intro {
         font-size: 20px;
     }
@@ -1309,14 +1322,6 @@ img {
         font-size: 15px;
     }
 
-    .project-footer .store-links:has(.store-link:nth-child(2)) {
-        flex-direction: column;
-    }
-
-    .project-footer .store-links:has(.store-link:nth-child(2)) .store-link {
-        width: 100%;
-        flex-basis: 46px;
-    }
 }
 
 @media (prefers-reduced-motion: reduce) {
